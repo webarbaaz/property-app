@@ -1,0 +1,38 @@
+import { cva, VariantProps } from "class-variance-authority";
+import { cn } from "../../utils/cn";
+
+// ✅ Grid (Responsive Grid System)
+const gridVariants = cva("grid", {
+  variants: {
+    cols: {
+      1: "grid-cols-1",
+      2: "grid-cols-2",
+      3: "grid-cols-3",
+      4: "grid-cols-4",
+      sm: "sm:grid-cols-1",
+      md: "md:grid-cols-2",
+      lg: "lg:grid-cols-3",
+      xl: "xl:grid-cols-4",
+    },
+    gap: {
+      sm: "gap-2",
+      md: "gap-4",
+      lg: "gap-6",
+      xl: "gap-8",
+    },
+  },
+  defaultVariants: {
+    cols: 3,
+    gap: "md",
+  },
+});
+
+export const Grid: React.FC<
+  React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof gridVariants>
+> = ({ className, cols, gap, children, ...props }) => {
+  return (
+    <div className={cn(gridVariants({ cols, gap }), className)} {...props}>
+      {children}
+    </div>
+  );
+};
