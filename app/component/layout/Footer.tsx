@@ -12,11 +12,12 @@ import {
 } from "react-icons/fa";
 import HStack from "../ui/HStack";
 import Link from "next/link";
+import { quickLinks } from "@/utils/values";
 
 export default function Footer() {
   return (
     <>
-      <div className="bg-blue-500 mt-12">
+      <div className="bg-blue-500">
         <Container className="py-10">
           <Grid cols={4} gap={"xl"}>
             <Stack spacing={"6"}>
@@ -128,15 +129,3 @@ export default function Footer() {
     </>
   );
 }
-
-const quickLinks = [
-  { title: "Home", url: "#" },
-  { title: "services", url: "#" },
-  { title: "Contact", url: "#" },
-  { title: "Projects", url: "#" },
-  { title: "Properties", url: "#" },
-  { title: "Career", url: "#" },
-  { title: "About", url: "#" },
-  { title: "Login", url: "#" },
-  { title: "Privacy", url: "#" },
-];

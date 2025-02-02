@@ -1,5 +1,5 @@
 import { cva, VariantProps } from "class-variance-authority";
-import { cn } from "../../utils/cn";
+import { cn } from "../../../utils/cn";
 import React from "react";
 
 // ✅ Stack (Flexible Stack with Responsive Direction)
@@ -34,7 +34,8 @@ const Stack = React.forwardRef<HTMLDivElement, StackProps>(
       <Comp
         className={cn(stackVariants({ spacing, className }))}
         ref={ref}
-        {...props}>
+        {...props}
+      >
         {children}
       </Comp>
     );

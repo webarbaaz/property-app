@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import React from "react";
-import { cn } from "../../utils/cn";
+import { cn } from "../../../utils/cn";
 
 // Define variants using cva
 const containerVariants = cva("max-w-7xl mx-auto px-4", {
@@ -41,7 +41,8 @@ const Container: React.FC<ContainerProps> = ({
   return (
     <div
       className={cn(containerVariants({ variant, size }), className)}
-      {...props}>
+      {...props}
+    >
       {children}
     </div>
   );

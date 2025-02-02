@@ -1,6 +1,6 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/app/utils/cn";
+import { cn } from "@/utils/cn";
 
 // ✅ Define Text Variants
 const textVariants = cva("", {
@@ -11,7 +11,7 @@ const textVariants = cva("", {
       md: "text-base",
       lg: "text-lg",
       xl: "text-xl",
-      "2xl": "text-2xl",
+      "2xl": "text-lg md:text-2xl",
       "3xl": "text-3xl",
       "4xl": "text-4xl",
     },
@@ -74,7 +74,8 @@ export const Text: React.FC<
         textVariants({ size, weight, color, align, responsive }),
         className
       )}
-      {...props}>
+      {...props}
+    >
       {children}
     </p>
   );

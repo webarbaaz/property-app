@@ -2,6 +2,7 @@
 import React from "react";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import SearchBar from "../../SearchBar";
 
 type Props = {};
 
@@ -10,8 +11,8 @@ export default function Carousel({}: Props) {
     loop: true,
   });
   const images = [
-    "https://images.unsplash.com/photo-1728326475125-3b4b62b8d2e6?q=80&w=2128&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1534113356284-9aa4ea943778?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    "https://plus.unsplash.com/premium_photo-1661876449499-26de7959878f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHByb3BlcnR5fGVufDB8fDB8fHww",
+    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvcGVydHl8ZW58MHx8MHx8fDA%3D",
   ];
   return (
     <div className="embla" ref={emblaRef}>
@@ -20,13 +21,16 @@ export default function Carousel({}: Props) {
           <div className="embla__slide" key={index}>
             <Image
               src={src}
-              className="w-full max-h-screen"
+              className="w-full max-h-screen object-cover"
               alt=""
-              width={1000}
-              height={1000}
+              width={1400}
+              height={1400}
             />
           </div>
         ))}
+      </div>
+      <div className="absolute left-2/4 bottom-12 -translate-x-2/4 w-full max-w-[1000px]">
+        <SearchBar />
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import { cva, VariantProps } from "class-variance-authority";
-import { cn } from "../../utils/cn";
+import { cn } from "../../../utils/cn";
 
 // ✅ Grid (Responsive Grid System)
 const gridVariants = cva("grid", {

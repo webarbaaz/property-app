@@ -4,13 +4,14 @@ import Carousel from "./component/module/Home/Carousel";
 import { Grid } from "./component/ui/Grid";
 import PropertyCard from "./component/PropertyCard";
 import Container from "./component/ui/Container";
-import Flex from "./component/ui/Flex";
 import HStack from "./component/ui/HStack";
 import Text from "./component/ui/Text";
 import Button from "./component/ui/Button";
 import Stack from "./component/ui/Stack";
 import { FaCheckCircle, FaHome } from "react-icons/fa";
 import { FaClock, FaThumbsUp } from "react-icons/fa6";
+import CustomerReviews from "./component/module/Home/CustomerReviews";
+import Brands from "./component/module/Home/Brands";
 
 export default function Home() {
   return (
@@ -152,6 +153,8 @@ export default function Home() {
             </Grid>
           </Stack>
         </Container>
+        <CustomerReviews />
+        <Brands />
       </Stack>
     </MainLayout>
   );
