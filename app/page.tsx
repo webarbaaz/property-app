@@ -16,7 +16,7 @@ import Brands from "./component/module/Home/Brands";
 export default function Home() {
   return (
     <MainLayout>
-      <Stack spacing={"12"}>
+      <Stack spacing={"12"} className="pb-10">
         <Carousel />
         <Container>
           <Stack spacing={"6"}>
