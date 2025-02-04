@@ -5,20 +5,22 @@ import Text from "./ui/Text";
 import { FaBed, FaLocationDot } from "react-icons/fa6";
 import HStack from "./ui/HStack";
 import Button from "./ui/Button";
+import { Property } from "@/types";
 
-type Props = {};
+// type Props = {
+//   property: Property;
+// };
 
-export default function PropertyCard({}: Props) {
+export default function PropertyCard(property: Property) {
+  console.log(property);
   return (
     <Stack
       spacing={"0"}
-      className="bg-white rounded-lg shadow-md capitalize relative"
-    >
+      className="bg-white rounded-lg shadow-md capitalize relative">
       <Text
         className="uppercase absolute left-2 top-2 bg-blue-500 px-3 py-1 shadow-lg rounded-full"
         color="white"
-        size={"sm"}
-      >
+        size={"sm"}>
         Ready To Move
       </Text>
       <Image
@@ -29,13 +31,13 @@ export default function PropertyCard({}: Props) {
         height={200}
       />
       <Stack spacing={"1"} className="p-3">
-        <Text weight={"semibold"}>Primal aranya</Text>
+        <Text weight={"semibold"}>{property?.name}</Text>
         <Text size={"sm"} color="secondary">
-          2,3,4,5 BHK
+          {property.size} BHK
         </Text>
         <HStack spacing={"1"}>
           <FaLocationDot />
-          <Text size={"sm"}> Bhandup, mumbai</Text>
+          <Text size={"sm"}>{property?.locality?.name?.current}</Text>
         </HStack>
         <Text size={"sm"} weight={"bold"}>
           ₹ 1.5 Cr /- Onwards

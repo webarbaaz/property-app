@@ -16,3 +16,31 @@ export const propertyListQuery = `
     "imageUrl": mainImage.asset->url
   }
 `;
+
+export const propertyQuery = `*[_type == "property" && slug.current == $slug][0] {
+  name,
+  description,
+  images,
+  type,
+  size,
+  carpetArea,
+  parking,
+  city,
+  locality-> {
+					_id,
+					name,
+					city-> {
+						name
+					},
+},
+  category,
+  price,
+  dealerName,
+  dealerContact,
+  amenities[]->{
+    name,
+    icon,
+  },
+  possessionDate,
+  carpetArea,
+}`;

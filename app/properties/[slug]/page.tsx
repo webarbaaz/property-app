@@ -4,47 +4,129 @@ import { Grid } from "@/app/component/ui/Grid";
 import HStack from "@/app/component/ui/HStack";
 import Stack from "@/app/component/ui/Stack";
 import Text from "@/app/component/ui/Text";
+import { propertyQuery } from "@/lib/qureies/property";
+import { client } from "@/lib/qureies/sanity/client";
 import Image from "next/image";
-import React from "react";
 import { FaCheckCircle } from "react-icons/fa";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 
-type Props = {};
+interface Amenity {
+  name: {
+    current: string;
+  };
+  icon: string;
+}
+interface Locality {
+  _id: string;
+  name: { current: string };
+  city: {
+    name: { current: string };
+  };
+}
+interface Property {
+  name: string;
+  description: string;
+  images: string[];
+  type: string;
+  size: number;
+  carpetArea: number;
+  parking: boolean;
+  city: string;
+  locality: Locality;
+  category: string;
+  price: number;
+  dealerName: string;
+  dealerContact: string;
+  amenities: Amenity[];
+  possessionDate: string;
+}
 
-export default function page({}: Props) {
+// Fetch property data (Runs on the server)
+async function getProperty(slug: string): Promise<Property | null> {
+  return await client.fetch(propertyQuery, { slug });
+}
+
+// Generate SEO Metadata (Optional)
+export async function generateMetadata({
+  params,
+}: {
+  params: { slug: string };
+}): Promise<Metadata> {
+  const property = await getProperty(params.slug);
+  if (!property) return {};
+
+  return {
+    title: `${property.name} | My Real Estate`,
+    description: property.description,
+    openGraph: {
+      title: property.name,
+      description: property.description,
+      // images: [{ url: property.images[0] }],
+    },
+  };
+}
+
+// Generate Static Paths for Static Site Generation (SSG)
+export async function generateStaticParams() {
+  const query = `*[_type == "property"]{ "slug": slug.current }`;
+  const properties = await client.fetch(query);
+
+  return properties.map((property: { slug: string }) => ({
+    slug: property.slug,
+  }));
+}
+
+// Page Component
+export default async function PropertyPage({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const property = await getProperty(params.slug);
+  console.log(property);
+  if (!property) return notFound();
+
   return (
     <MainLayout>
       <Stack className="pb-10">
         <div className="bg-gray-300 p-6">
           <Container>
             <Stack>
-              <Text color="black" weight={"bold"} size={"2xl"}>
-                Property Name
+              <Text color="black" weight="bold" size="2xl">
+                {property.name}
               </Text>
               <Text>
-                Dr B.A Road ITC Grand Central, Lower Parel East, Mumbai,
-                Maharashtra 400012
+                {property.locality.name.current},{" "}
+                {property.locality.city.name.current}
               </Text>
             </Stack>
           </Container>
         </div>
+
         <Container>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-            <Stack className="col-span-8" spacing={"2"}>
-              <HStack spacing={"10"}>
-                <Text> published on 16-05-2020</Text>
-                <Text> 3 bed 2 bath</Text>
-                <Text> 1,200 sqft</Text>
+            <Stack className="col-span-8" spacing="2">
+              <HStack spacing="10">
+                <Text>Published on: 16-05-2020</Text>
+                <Text>{property.possessionDate}</Text>
+                <Text>{property.carpetArea} sqft</Text>
               </HStack>
-              <Image
-                src="https://www.valueproperties.co.in/property-consultant/listing/images/uploads/projects/Piramal%20Aranya%20banner3.jpg"
-                width={1920}
-                height={1080}
-                className="rounded-lg"
-                alt=""
-              />
+              {property.images.map((image, index) => {
+                return (
+                  <Image
+                    key={index}
+                    src={"/placeholder.jpg"}
+                    width={1920}
+                    height={1080}
+                    className="rounded-lg"
+                    alt={property.name}
+                  />
+                );
+              })}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
-                <Stack spacing={"6"} className="col-span-2">
-                  <Text weight={"semibold"} size={"xl"}>
+                <Stack spacing="6" className="col-span-2">
+                  <Text weight="semibold" size="xl">
                     Property Details
                   </Text>
                   <table className="w-full border border-gray-300 rounded-lg overflow-hidden">
@@ -56,67 +138,80 @@ export default function page({}: Props) {
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="px-4 py-2 border">Bedrooms</td>
-                        <td className="px-4 py-2 border">3</td>
-                      </tr>
-                      <tr className="bg-gray-50">
-                        <td className="px-4 py-2 border">Bathrooms</td>
-                        <td className="px-4 py-2 border">2</td>
+                        <td className="px-4 py-2 border">Project Type</td>
+                        <td className="px-4 py-2 border">{property.type}</td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Square Footage</td>
-                        <td className="px-4 py-2 border">1,200 sqft</td>
+                        <td className="px-4 py-2 border">Parking</td>
+                        <td className="px-4 py-2 border">{property.parking}</td>
                       </tr>
-                      <tr className="bg-gray-50">
-                        <td className="px-4 py-2 border">Year Built</td>
-                        <td className="px-4 py-2 border">2015</td>
+                      <tr>
+                        <td className="px-4 py-2 border">City</td>
+                        <td className="px-4 py-2 border">
+                          {property.locality.city.name.current}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Location</td>
+                        <td className="px-4 py-2 border">
+                          {property.locality.name.current}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Type</td>
+                        <td className="px-4 py-2 border">
+                          {property.size} BHK
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Property Price</td>
+                        <td className="px-4 py-2 border">{property.size}</td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Name :</td>
+                        <td className="px-4 py-2 border">
+                          {property.dealerName}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Contact :</td>
+                        <td className="px-4 py-2 border">
+                          {property.dealerContact}
+                        </td>
                       </tr>
                     </tbody>
                   </table>
                 </Stack>
-                <Stack spacing={"6"} className="col-span-3">
-                  <Stack spacing={"6"}>
-                    <Text weight={"semibold"} size={"xl"}>
-                      Property Details
+
+                <Stack spacing="6" className="col-span-3">
+                  <Stack spacing="6">
+                    <Text weight="semibold" size="xl">
+                      Description
                     </Text>
-                    <Text>
-                      {" "}
-                      Your search for the perfect 2 BHK & 3 BHK flats in Lower
-                      Parel comes to an end with Avighna IX. Avighna IX is the
-                      ultimate address for fine living with its architectural
-                      elements creating an air of peace and prosperity, rich
-                      design symbolizing luxury and world-class amenities that
-                      deliver a great lifestyle. It is an oasis of opulence
-                      created for a community of residents who want the best for
-                      themselves and their families.
-                    </Text>
+                    <Text>{property.description}</Text>
                   </Stack>
-                  <Stack spacing={"6"}>
-                    <Text weight={"semibold"} size={"xl"}>
+
+                  <Stack spacing="6">
+                    <Text weight="semibold" size="xl">
                       Amenities
                     </Text>
                     <Grid cols={2}>
-                      <HStack>
-                        <FaCheckCircle />
-                        <Text> Security/Fire Alarm</Text>
-                      </HStack>
-                      <HStack>
-                        <FaCheckCircle />
-                        <Text> Security/Fire Alarm</Text>
-                      </HStack>
-                      <HStack>
-                        <FaCheckCircle />
-                        <Text> Security/Fire Alarm</Text>
-                      </HStack>
-                      <HStack>
-                        <FaCheckCircle />
-                        <Text> Security/Fire Alarm</Text>
-                      </HStack>
+                      {property?.amenities?.map((amenity, index) => {
+                        console.log(amenity);
+                        return (
+                          <HStack key={index}>
+                            <FaCheckCircle />
+                            <Text>{amenity.name.current}</Text>
+                          </HStack>
+                        );
+                      })}
                     </Grid>
                   </Stack>
                 </Stack>
               </div>
             </Stack>
+
+            {/* Sidebar Placeholder */}
             <Stack className="col-span-4"></Stack>
           </div>
         </Container>
