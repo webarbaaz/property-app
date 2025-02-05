@@ -15,11 +15,13 @@ export default function PropertyCard({ property }: Props) {
   return (
     <Stack
       spacing={"0"}
-      className="bg-white rounded-lg shadow-md capitalize relative">
+      className="bg-white rounded-lg shadow-md capitalize relative"
+    >
       <Text
         className="uppercase absolute left-2 top-2 bg-blue-500 px-3 py-1 shadow-lg rounded-full"
         color="white"
-        size={"sm"}>
+        size={"sm"}
+      >
         Ready To Move
       </Text>
       <Image
@@ -32,7 +34,7 @@ export default function PropertyCard({ property }: Props) {
       <Stack spacing={"1"} className="p-3">
         <Text weight={"semibold"}>{property?.name}</Text>
         <Text size={"sm"} color="secondary">
-          {property.size} BHK
+          {property?.size} BHK
         </Text>
         <HStack spacing={"1"}>
           <FaLocationDot />
