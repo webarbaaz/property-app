@@ -7,12 +7,11 @@ import HStack from "./ui/HStack";
 import Button from "./ui/Button";
 import { Property } from "@/types";
 
-// type Props = {
-//   property: Property;
-// };
+type Props = {
+  property: Property;
+};
 
-export default function PropertyCard(property: Property) {
-  console.log(property);
+export default function PropertyCard({ property }: Props) {
   return (
     <Stack
       spacing={"0"}

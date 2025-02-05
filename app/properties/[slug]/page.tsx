@@ -4,43 +4,13 @@ import { Grid } from "@/app/component/ui/Grid";
 import HStack from "@/app/component/ui/HStack";
 import Stack from "@/app/component/ui/Stack";
 import Text from "@/app/component/ui/Text";
-import { propertyQuery } from "@/lib/qureies/property";
-import { client } from "@/lib/qureies/sanity/client";
+import { propertyQuery } from "@/lib/sanity/qureies/property";
+import { client } from "@/lib/sanity/client";
 import Image from "next/image";
 import { FaCheckCircle } from "react-icons/fa";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
-
-interface Amenity {
-  name: {
-    current: string;
-  };
-  icon: string;
-}
-interface Locality {
-  _id: string;
-  name: { current: string };
-  city: {
-    name: { current: string };
-  };
-}
-interface Property {
-  name: string;
-  description: string;
-  images: string[];
-  type: string;
-  size: number;
-  carpetArea: number;
-  parking: boolean;
-  city: string;
-  locality: Locality;
-  category: string;
-  price: number;
-  dealerName: string;
-  dealerContact: string;
-  amenities: Amenity[];
-  possessionDate: string;
-}
+import { Property } from "@/types";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
@@ -84,7 +54,6 @@ export default async function PropertyPage({
   params: { slug: string };
 }) {
   const property = await getProperty(params.slug);
-  console.log(property);
   if (!property) return notFound();
 
   return (

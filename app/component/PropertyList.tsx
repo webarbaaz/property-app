@@ -1,64 +1,76 @@
-import React from "react";
-import { client } from "@/lib/qureies/sanity/client";
-import Image from "next/image";
-import Link from "next/link";
-import { FaCheckCircle } from "react-icons/fa";
+"use client";
+import { useCallback, useEffect, useState } from "react";
 import { Grid } from "@/app/component/ui/Grid";
-import HStack from "@/app/component/ui/HStack";
-import Stack from "@/app/component/ui/Stack";
 import Text from "@/app/component/ui/Text";
 import PropertyCard from "./PropertyCard";
+import { Button } from "@/app/component/ui/Button";
+import { Property } from "@/types";
+import { getProperties } from "@/lib/sanity/controller/controller.property";
 
-// Define Property Interface
-interface Property {
-  _id: string;
-  slug: string;
-  name: string;
-  description: string;
-  images: string[];
-  size: number;
-  price: number;
-  locality: {
-    name: { current: string };
-    city: {
-      name: { current: string };
-    };
+export default function PropertyList({
+  filters = {},
+  limit = 10,
+}: {
+  filters?: {
+    propertyType?: string;
+    propertyStatus?: string;
+    location?: string;
+    category?: string;
   };
-  amenities: { name: { current: string } }[];
-}
+  limit?: number;
+}) {
+  const [page, setPage] = useState(1);
+  const [properties, setProperties] = useState<Property[]>([]);
+  const [loading, setLoading] = useState(false);
 
-// Fetch properties (Server-side function)
-async function getProperties(filters?: any, limit: number = 10) {
-  const query = `*[_type == "property"] | order(_createdAt desc) [0...$limit] {
-    _id,
-    "slug": slug.current,
-    name,
-    description,
-    images,
-    size,
-    price,
-    locality {
-      name { current },
-      city { name { current } }
-    }
-  }`;
+  const fetchProperties = useCallback(
+    async (pageNumber: number) => {
+      setLoading(true);
+      const fetchedProperties: Property[] = await getProperties(
+        filters,
+        pageNumber,
+        limit
+      );
+      setProperties(fetchedProperties);
+      setLoading(false);
+    },
+    [filters, limit]
+  );
 
-  return await client.fetch(query, { limit });
-}
+  // Fetch properties when page changes
+  useEffect(() => {
+    fetchProperties(page);
+  }, [page, filters, fetchProperties]);
 
-// Reusable Server Component
-export default async function PropertyList({ limit = 10 }: { limit?: number }) {
-  const properties: Property[] = await getProperties({}, limit);
+  if (loading) {
+    return <Text>Loading...</Text>;
+  }
 
   if (!properties.length) {
     return <Text>No properties found.</Text>;
   }
 
   return (
-    <Grid cols={3} gap="lg">
-      {properties.map((property, idx) => (
-        <PropertyCard key={idx} property={property} />
-      ))}
-    </Grid>
+    <div>
+      <Grid cols={3} gap="lg">
+        {properties.map((property, idx) => (
+          <PropertyCard key={idx} property={property} />
+        ))}
+      </Grid>
+
+      {/* Pagination Controls */}
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginTop: "20px",
+        }}>
+        <Button disabled={page === 1} onClick={() => setPage(page - 1)}>
+          Previous
+        </Button>
+        <Text style={{ margin: "0 10px" }}>Page {page}</Text>
+        <Button onClick={() => setPage(page + 1)}>Next</Button>
+      </div>
+    </div>
   );
 }
