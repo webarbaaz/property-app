@@ -108,7 +108,9 @@ export default async function PropertyPage({
                     <tbody>
                       <tr>
                         <td className="px-4 py-2 border">Project Type</td>
-                        <td className="px-4 py-2 border">{property.type}</td>
+                        <td className="px-4 py-2 border">
+                          {property.propertyType}
+                        </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Parking</td>
@@ -139,13 +141,13 @@ export default async function PropertyPage({
                       <tr>
                         <td className="px-4 py-2 border">Name :</td>
                         <td className="px-4 py-2 border">
-                          {property.dealerName}
+                          {property.representativeName}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Contact :</td>
                         <td className="px-4 py-2 border">
-                          {property.dealerContact}
+                          {property.representativeNumber}
                         </td>
                       </tr>
                     </tbody>

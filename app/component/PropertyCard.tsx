@@ -15,14 +15,12 @@ export default function PropertyCard({ property }: Props) {
   return (
     <Stack
       spacing={"0"}
-      className="bg-white rounded-lg shadow-md capitalize relative"
-    >
+      className="bg-white rounded-lg shadow-md capitalize relative">
       <Text
         className="uppercase absolute left-2 top-2 bg-blue-500 px-3 py-1 shadow-lg rounded-full"
         color="white"
-        size={"sm"}
-      >
-        Ready To Move
+        size={"sm"}>
+        {property?.propertyStatus}
       </Text>
       <Image
         className="rounded-t-lg w-full"
