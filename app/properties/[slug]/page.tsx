@@ -11,6 +11,7 @@ import { FaCheckCircle } from "react-icons/fa";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { Property } from "@/types";
+import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
@@ -85,7 +86,7 @@ export default async function PropertyPage({
                 return (
                   <Image
                     key={index}
-                    src={"/placeholder.jpg"}
+                    src={generateImageUrl(image) ?? "/placeholder.jpg"}
                     width={1920}
                     height={1080}
                     className="rounded-lg"

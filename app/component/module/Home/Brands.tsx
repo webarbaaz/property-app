@@ -7,9 +7,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import Container from "../../ui/Container";
 
-type Props = {};
-
-export default function Brands({}: Props) {
+export default function Brands() {
   const [emblaRef] = useEmblaCarousel({
     loop: true,
   });

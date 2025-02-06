@@ -5,3 +5,10 @@ export const pageQuery = `
     content
   }
 `;
+
+export const pageQueryList = `
+  *[_type == "page" && slug.current == $slug] {
+    name,
+    slug,
+  }
+`;

@@ -13,6 +13,7 @@ interface Locality {
 }
 export interface Property {
   name: string;
+  slug: string;
   description: string;
   images: string[];
   propertyType: string;

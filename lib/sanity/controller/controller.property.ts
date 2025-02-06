@@ -41,6 +41,7 @@ export async function getProperties(
       size,
       price,
       category,
+      propertyStatus,
       locality {
         name { current },
         city { name { current } }

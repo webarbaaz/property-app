@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
       "images.unsplash.com",
       "plus.unsplash.com",
       "www.valueproperties.co.in",
+      "cdn.sanity.io",
     ],
   },
 };

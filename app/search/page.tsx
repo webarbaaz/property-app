@@ -5,9 +5,7 @@ import SearchBar from "../component/SearchBar";
 import Container from "../component/ui/Container";
 import Text from "../component/ui/Text";
 
-type Props = {};
-
-export default function page({}: Props) {
+export default function page() {
   return (
     <MainLayout>
       <Container className="py-12">

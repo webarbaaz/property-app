@@ -4,9 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import SearchBar from "../../SearchBar";
 
-type Props = {};
-
-export default function Carousel({}: Props) {
+export default function Carousel() {
   const [emblaRef] = useEmblaCarousel({
     loop: true,
   });

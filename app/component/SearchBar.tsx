@@ -3,11 +3,8 @@ import { Grid } from "./ui/Grid";
 import Stack from "./ui/Stack";
 import Text from "./ui/Text";
 import Button from "./ui/Button";
-import { FaSearch } from "react-icons/fa";
 
-type Props = {};
-
-export default function SearchBar({}: Props) {
+export default function SearchBar() {
   return (
     <Grid
       cols={4}
