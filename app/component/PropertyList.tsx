@@ -22,25 +22,22 @@ export default function PropertyList({
   const [page, setPage] = useState(1);
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(false);
-
-  const fetchProperties = useCallback(
-    async (pageNumber: number) => {
-      setLoading(true);
-      const fetchedProperties: Property[] = await getProperties(
-        filters,
-        pageNumber,
-        limit
-      );
-      setProperties(fetchedProperties);
-      setLoading(false);
-    },
-    [filters, limit]
-  );
+  console.log("filters", filters);
+  const fetchProperties = useCallback(async (pageNumber: number) => {
+    setLoading(true);
+    const fetchedProperties: Property[] = await getProperties(
+      filters,
+      pageNumber,
+      limit
+    );
+    setProperties(fetchedProperties);
+    setLoading(false);
+  }, []);
 
   // Fetch properties when page changes
   useEffect(() => {
     fetchProperties(page);
-  }, [page, filters, fetchProperties]);
+  }, []);
 
   if (loading) {
     return <Text>Loading...</Text>;

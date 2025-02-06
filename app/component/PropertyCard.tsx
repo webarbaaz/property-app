@@ -39,11 +39,11 @@ export default function PropertyCard({ property }: Props) {
           <Text size={"sm"}>{property?.locality?.name?.current}</Text>
         </HStack>
         <Text size={"sm"} weight={"bold"}>
-          ₹ 1.5 Cr /- Onwards
+          ₹ {property.price} /- Onwards
         </Text>
         <HStack spacing={"1"}>
           <FaBed />
-          <Text size={"sm"}>2,3,4,5 BHK</Text>
+          <Text size={"sm"}>{property.size}</Text>
         </HStack>
         <Button className="!mt-3" size={"sm"} color={"primary"}>
           Contact Us

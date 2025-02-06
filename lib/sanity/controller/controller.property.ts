@@ -48,9 +48,9 @@ export async function getProperties(
     }`;
 
   return await client.fetch(query, {
-    propertyType,
-    propertyStatus,
-    location,
-    category,
+    // propertyType,
+    // propertyStatus,
+    // location,
+    // category,
   });
 }

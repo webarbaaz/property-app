@@ -1,9 +1,33 @@
 import { Metadata } from "next";
-import MainLayout from "../component/layout/MainLayout";
+import MainLayout from "../../component/layout/MainLayout";
 import { client } from "@/lib/sanity/client";
 import { pageQuery } from "@/lib/sanity/qureies/pageQuery";
 import { notFound } from "next/navigation";
+import Container from "@/app/component/ui/Container";
+import { PortableText } from "@portabletext/react";
+import imageUrlBuilder from "@sanity/image-url";
+import Image from "next/image";
+import Text from "@/app/component/ui/Text";
 
+// Setup the Sanity image builder
+const builder = imageUrlBuilder(client);
+
+function urlFor(source) {
+  return builder.image(source).url();
+}
+
+// Define serializers for rich text rendering
+const components = {
+  types: {
+    image: ({ value }) => (
+      <Image
+        src={urlFor(value.asset)}
+        alt="Sanity Image"
+        className="rounded-lg"
+      />
+    ),
+  },
+};
 type PageProps = {
   params: { slug: string };
 };
@@ -36,13 +60,17 @@ export async function generateStaticParams() {
 
 export default async function Page({ params }: PageProps) {
   const pageData = await getPageData(params.slug);
-
+  console.log("pageData", pageData);
   return (
     <MainLayout>
-      <div>
-        <h1>{pageData.title}</h1>
-        <div dangerouslySetInnerHTML={{ __html: pageData.content }} />
-      </div>
+      <Container className="space-y-10 py-10">
+        <Text weight={"bold"} size={"4xl"} className="text-center">
+          {pageData.name}
+        </Text>
+        <div>
+          <PortableText value={pageData.content} components={components} />
+        </div>
+      </Container>
     </MainLayout>
   );
 }

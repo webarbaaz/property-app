@@ -1,6 +1,6 @@
 export const pageQuery = `
   *[_type == "page" && slug.current == $slug][0] {
-    title,
+    name,
     description,
     content
   }
