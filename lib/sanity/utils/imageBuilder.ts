@@ -5,6 +5,6 @@ import { client } from "../client";
 const builder = imageUrlBuilder(client);
 
 export default function generateImageUrl(source: string) {
-  if (!source && source === undefined) return "./placeholder-image.png";
+  if (!source && source === undefined) return;
   return builder.image(source)?.url();
 }

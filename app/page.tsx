@@ -2,7 +2,6 @@ import Image from "next/image";
 import MainLayout from "./component/layout/MainLayout";
 import Carousel from "./component/module/Home/Carousel";
 import { Grid } from "./component/ui/Grid";
-import PropertyCard from "./component/PropertyCard";
 import Container from "./component/ui/Container";
 import HStack from "./component/ui/HStack";
 import Text from "./component/ui/Text";
@@ -12,6 +11,7 @@ import { FaCheckCircle, FaHome } from "react-icons/fa";
 import { FaClock, FaThumbsUp } from "react-icons/fa6";
 import CustomerReviews from "./component/module/Home/CustomerReviews";
 import Brands from "./component/module/Home/Brands";
+import PropertyList from "./component/PropertyList";
 
 export default function Home() {
   return (
@@ -28,11 +28,7 @@ export default function Home() {
                 View All
               </Button>
             </HStack>
-            <Grid cols={"xl"}>
-              {[1, 2, 3, 4].map((_, idx) => (
-                <PropertyCard key={idx} />
-              ))}
-            </Grid>
+            <PropertyList limit={4} />
           </Stack>
         </Container>
         <HStack
@@ -62,11 +58,7 @@ export default function Home() {
                 View All
               </Button>
             </HStack>
-            <Grid cols={"xl"}>
-              {[1, 2, 3, 4].map((_, idx) => (
-                <PropertyCard key={idx} />
-              ))}
-            </Grid>
+            <PropertyList limit={4} />
           </Stack>
         </Container>
         <Container>
@@ -79,11 +71,7 @@ export default function Home() {
                 View All
               </Button>
             </HStack>
-            <Grid cols={"xl"}>
-              {[1, 2, 3, 4].map((_, idx) => (
-                <PropertyCard key={idx} />
-              ))}
-            </Grid>
+            <PropertyList limit={4} />
           </Stack>
         </Container>
         <section className="relative py-16 md:py-24 overflow-hidden">
@@ -129,11 +117,7 @@ export default function Home() {
                 View All
               </Button>
             </HStack>
-            <Grid cols={"xl"}>
-              {[1, 2, 3, 4].map((_, idx) => (
-                <PropertyCard key={idx} />
-              ))}
-            </Grid>
+            <PropertyList limit={4} />
           </Stack>
         </Container>
         <Container>
@@ -146,11 +130,7 @@ export default function Home() {
                 View All
               </Button>
             </HStack>
-            <Grid cols={"xl"}>
-              {[1, 2, 3, 4].map((_, idx) => (
-                <PropertyCard key={idx} />
-              ))}
-            </Grid>
+            <PropertyList limit={4} />
           </Stack>
         </Container>
         <CustomerReviews />

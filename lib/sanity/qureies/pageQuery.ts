@@ -7,7 +7,7 @@ export const pageQuery = `
 `;
 
 export const pageQueryList = `
-  *[_type == "page" && slug.current == $slug] {
+  *[_type == "page"] {
     name,
     slug,
   }

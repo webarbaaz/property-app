@@ -1,3 +1,4 @@
+"use client";
 import MainLayout from "@/app/component/layout/MainLayout";
 import Container from "@/app/component/ui/Container";
 import { Grid } from "@/app/component/ui/Grid";
@@ -8,55 +9,49 @@ import { propertyQuery } from "@/lib/sanity/qureies/property";
 import { client } from "@/lib/sanity/client";
 import Image from "next/image";
 import { FaCheckCircle } from "react-icons/fa";
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
+import { notFound, useParams } from "next/navigation";
 import { Property } from "@/types";
 import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
+import { useEffect, useState } from "react";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
   return await client.fetch(propertyQuery, { slug });
 }
 
-// Generate SEO Metadata (Optional)
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
-  const property = await getProperty(params.slug);
-  if (!property) return {};
-
-  return {
-    title: `${property.name} | My Real Estate`,
-    description: property.description,
-    openGraph: {
-      title: property.name,
-      description: property.description,
-      // images: [{ url: property.images[0] }],
-    },
-  };
-}
-
-// Generate Static Paths for Static Site Generation (SSG)
-export async function generateStaticParams() {
-  const query = `*[_type == "property"]{ "slug": slug.current }`;
-  const properties = await client.fetch(query);
-
-  return properties.map((property: { slug: string }) => ({
-    slug: property.slug,
-  }));
-}
-
 // Page Component
-export default async function PropertyPage({
-  params,
-}: {
-  params: { slug: string };
-}) {
-  const property = await getProperty(params.slug);
-  if (!property) return notFound();
+export default function PropertyPage() {
+  const params = useParams();
+  const slug = params?.slug
+    ? Array.isArray(params.slug)
+      ? params.slug[0]
+      : params.slug
+    : null; // Ensure slug is a string
 
+  const [property, setProperty] = useState<Property | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!slug) return; // Prevents fetching if slug is undefined
+
+    const fetchSingleProperty = async () => {
+      try {
+        const data = await getProperty(slug);
+        if (data) {
+          setProperty(data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch property:", error);
+      } finally {
+        setLoading(false); // Ensure loading state updates
+      }
+    };
+
+    fetchSingleProperty();
+  }, [slug]); // Only re-run when slug changes
+
+  if (loading) return <p>Loading...</p>;
+  if (!property) return notFound();
   return (
     <MainLayout>
       <Stack className="pb-10">
