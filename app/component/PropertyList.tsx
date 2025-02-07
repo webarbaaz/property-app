@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { Grid } from "@/app/component/ui/Grid";
 import Text from "@/app/component/ui/Text";
@@ -21,23 +21,20 @@ interface PropertyListProps {
   limit?: number;
 }
 
-export default function PropertyList({
-  filters = {},
-  limit = 10,
-}: PropertyListProps) {
+function PropertyListContent({ filters = {}, limit = 10 }: PropertyListProps) {
   const searchParams = useSearchParams();
   const [properties, setProperties] = useState<Property[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Convert searchParams to a stable string to avoid unnecessary renders
+  // ✅ Convert searchParams to string (prevents unnecessary re-renders)
   const searchParamsString = useMemo(
     () => searchParams.toString(),
     [searchParams]
   );
 
-  // ✅ Use useMemo to prevent unnecessary re-renders
+  // ✅ Compute filters based on searchParams
   const mergedFilters = useMemo(() => {
-    const params = new URLSearchParams(searchParamsString); // Parse string back to object
+    const params = new URLSearchParams(searchParamsString);
     return {
       propertyType: params.get("propertyType") || filters.propertyType,
       propertyStatus: params.get("propertyStatus") || filters.propertyStatus,
@@ -46,6 +43,7 @@ export default function PropertyList({
     };
   }, [searchParamsString, filters]);
 
+  // ✅ Fetch properties when `mergedFilters` or `limit` changes
   useEffect(() => {
     const fetchProperties = async () => {
       setLoading(true);
@@ -65,20 +63,27 @@ export default function PropertyList({
     };
 
     fetchProperties();
-  }, []); // ✅ No more infinite loop!
+  }, []); // ✅ No infinite loop!
 
   if (loading) return <Text>Loading properties...</Text>;
   if (!properties.length) return <Text>No properties found.</Text>;
 
   return (
-    <div>
-      <Grid cols={3} gap="lg">
-        {properties.map((property) => (
-          <Link key={property.slug} href={`/properties/${property.slug}`}>
-            <PropertyCard property={property} />
-          </Link>
-        ))}
-      </Grid>
-    </div>
+    <Grid cols={3} gap="lg">
+      {properties.map((property) => (
+        <Link key={property.slug} href={`/properties/${property.slug}`}>
+          <PropertyCard property={property} />
+        </Link>
+      ))}
+    </Grid>
+  );
+}
+
+// ✅ Wrap `PropertyListContent` in Suspense to fix Next.js warning
+export default function PropertyList(props: PropertyListProps) {
+  return (
+    <Suspense fallback={<Text>Loading search filters...</Text>}>
+      <PropertyListContent {...props} />
+    </Suspense>
   );
 }
