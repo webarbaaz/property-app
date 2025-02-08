@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Container from "../ui/Container";
 import { Grid } from "../ui/Grid";
@@ -12,14 +13,15 @@ import {
 } from "react-icons/fa";
 import HStack from "../ui/HStack";
 import Link from "next/link";
-import { quickLinks } from "@/utils/values";
+import { useSite } from "@/app/hooks/useSite";
 
 export default function Footer() {
+  const { mergedLinks } = useSite();
   return (
     <>
       <div className="bg-blue-500">
         <Container className="py-10">
-          <Grid cols={4} gap={"xl"}>
+          <Grid cols={"max4"} gap={"xl"}>
             <Stack spacing={"6"}>
               <Text
                 className="uppercase"
@@ -62,7 +64,7 @@ export default function Footer() {
                 Quick Links
               </Text>
               <Stack>
-                {quickLinks.map((link) => (
+                {mergedLinks.map((link) => (
                   <Stack key={link.title} spacing={"2"}>
                     <Text color="white">{link.title}</Text>
                   </Stack>

@@ -9,8 +9,7 @@ export default function Carousel() {
     loop: true,
   });
   const images = [
-    "https://plus.unsplash.com/premium_photo-1661876449499-26de7959878f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fHByb3BlcnR5fGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8cHJvcGVydHl8ZW58MHx8MHx8fDA%3D",
+    "https://images.unsplash.com/photo-1486325212027-8081e485255e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   ];
   return (
     <div className="embla" ref={emblaRef}>
@@ -27,7 +26,7 @@ export default function Carousel() {
           </div>
         ))}
       </div>
-      <div className="absolute left-2/4 bottom-12 -translate-x-2/4 w-full max-w-[1000px]">
+      <div className="absolute left-2/4 bottom-12 -translate-x-2/4 w-full max-w-[1000px] hidden lg:block">
         <SearchBar />
       </div>
     </div>

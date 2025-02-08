@@ -35,11 +35,11 @@ export default function PropertyCard({ property }: Props) {
       <Stack spacing={"1"} className="p-3">
         <Text weight={"semibold"}>{property?.name}</Text>
         <Text size={"sm"} color="secondary">
-          {property?.size} BHK
+          {property?.size}
         </Text>
         <HStack spacing={"1"}>
           <FaLocationDot />
-          <Text size={"sm"}>{property?.locality?.name?.current}</Text>
+          <Text size={"sm"}>{property.locality?.city?.name?.current}</Text>
         </HStack>
         <Text size={"sm"} weight={"bold"}>
           ₹ {property?.price} /- Onwards

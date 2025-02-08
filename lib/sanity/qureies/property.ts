@@ -11,7 +11,6 @@ export const propertyListQuery = `
   size,
   carpetArea,
   parking,
-  city,
   locality-> {
 					_id,
 					name,

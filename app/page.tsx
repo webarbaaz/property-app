@@ -89,7 +89,7 @@ export default function Home() {
             <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-white">
               Why Choose Us
             </h2>
-            <Grid cols={4} gap={"lg"}>
+            <Grid cols={"max4"} gap={"lg"}>
               {features.map((feature, index) => (
                 <div
                   key={index}
