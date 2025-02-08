@@ -31,3 +31,8 @@ export interface Property {
   representativeName: string;
   representativeNumber: number;
 }
+
+export interface LinkType {
+  title: string;
+  url: string;
+}
