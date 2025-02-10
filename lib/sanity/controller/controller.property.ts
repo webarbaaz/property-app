@@ -18,16 +18,16 @@ export async function getProperties(
   const filterConditions = [`_type == "property"`];
 
   if (propertyType) {
-    filterConditions.push(`type == $propertyType`);
+    filterConditions.push(`type == ${propertyType}`);
   }
   if (propertyStatus) {
-    filterConditions.push(`status == $propertyStatus`);
+    filterConditions.push(`status == ${propertyStatus}`);
   }
   if (location) {
-    filterConditions.push(`locality.city.name.current match $location`);
+    filterConditions.push(`locality.city.name.current match ${location}`);
   }
   if (category) {
-    filterConditions.push(`category == $category`);
+    filterConditions.push(`category == ${category}`);
   }
 
   const query = `*[

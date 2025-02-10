@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState, useMemo, Suspense } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
+import InfiniteScroll from "react-infinite-scroll-component";
+import Link from "next/link";
+
+import { getProperties } from "@/lib/sanity/controller/controller.property";
+import { Property } from "@/types";
+import PropertyCard from "./PropertyCard";
 import { Grid } from "@/app/component/ui/Grid";
 import Text from "@/app/component/ui/Text";
-import PropertyCard from "./PropertyCard";
-import { Property } from "@/types";
-import { getProperties } from "@/lib/sanity/controller/controller.property";
-import Link from "next/link";
 
 interface PropertyFilters {
   propertyType?: string;
@@ -19,71 +21,77 @@ interface PropertyFilters {
 interface PropertyListProps {
   filters?: PropertyFilters;
   limit?: number;
+  showNoMore?: boolean;
 }
 
-function PropertyListContent({ filters = {}, limit = 10 }: PropertyListProps) {
+export default function PropertyList({
+  filters = {},
+  limit = 10,
+  showNoMore = false,
+}: PropertyListProps) {
   const searchParams = useSearchParams();
-  const [properties, setProperties] = useState<Property[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  // ✅ Convert searchParams to string (prevents unnecessary re-renders)
-  const searchParamsString = useMemo(
-    () => searchParams.toString(),
-    [searchParams]
-  );
+  // ✅ Convert searchParams to filters
+  const mergedFilters = Object.fromEntries(searchParams.entries());
 
-  // ✅ Compute filters based on searchParams
-  const mergedFilters = useMemo(() => {
-    const params = new URLSearchParams(searchParamsString);
-    return {
-      propertyType: params.get("propertyType") || filters.propertyType,
-      propertyStatus: params.get("propertyStatus") || filters.propertyStatus,
-      location: params.get("location") || filters.location,
-      category: params.get("category") || filters.category,
-    };
-  }, [searchParamsString, filters]);
-
-  // ✅ Fetch properties when `mergedFilters` or `limit` changes
-  useEffect(() => {
-    const fetchProperties = async () => {
-      setLoading(true);
-      try {
-        const fetchedProperties: Property[] = await getProperties(
-          mergedFilters,
-          1,
+  // ✅ Data Fetching with Infinite Scroll
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
+    useInfiniteQuery<{
+      data: Property[];
+      nextPage: number | null;
+    }>({
+      queryKey: ["properties", mergedFilters],
+      initialPageParam: 1,
+      queryFn: async ({ pageParam }) => {
+        const fetchedProperties = await getProperties(
+          { ...mergedFilters, ...filters },
+          pageParam,
           limit
         );
-        setProperties(fetchedProperties);
-      } catch (error) {
-        console.error("Failed to fetch properties:", error);
-        setProperties([]);
-      } finally {
-        setLoading(false);
-      }
-    };
+        return {
+          data: fetchedProperties,
+          nextPage: fetchedProperties.length ? pageParam + 1 : null,
+        };
+      },
+      getNextPageParam: (lastPage) => lastPage.nextPage,
+    });
 
-    fetchProperties();
-  }, []); // ✅ No infinite loop!
+  const properties = data?.pages.flatMap((page) => page.data) || [];
 
-  if (loading) return <Text>Loading properties...</Text>;
+  if (isLoading) return <Text>Loading properties...</Text>;
   if (!properties.length) return <Text>No properties found.</Text>;
 
   return (
-    <Grid cols={3} gap="lg">
-      {properties.map((property) => (
-        <Link key={property.slug} href={`/properties/${property.slug}`}>
-          <PropertyCard property={property} />
-        </Link>
-      ))}
-    </Grid>
+    <div style={{ width: "100%" }}>
+      <InfiniteScroll
+        dataLength={properties.length}
+        next={fetchNextPage}
+        hasMore={hasNextPage}
+        loader={
+          isFetchingNextPage ? <Text>Loading more properties...</Text> : null
+        }>
+        <Grid cols={3} gap="lg">
+          {properties.map((property) => (
+            <Link key={property.slug} href={`/properties/${property.slug}`}>
+              <PropertyCard property={property} />
+            </Link>
+          ))}
+        </Grid>
+        {showNoMore && !hasNextPage && !isLoading && (
+          <div style={{ textAlign: "center", marginTop: "16px" }}>
+            <Text>No more properties</Text>
+          </div>
+        )}
+      </InfiniteScroll>
+    </div>
   );
 }
 
-// ✅ Wrap `PropertyListContent` in Suspense to fix Next.js warning
-export default function PropertyList(props: PropertyListProps) {
-  return (
-    <Suspense fallback={<Text>Loading search filters...</Text>}>
-      <PropertyListContent {...props} />
-    </Suspense>
-  );
-}
+// // ✅ Wrap `PropertyListContent` in Suspense to fix Next.js warning
+// export default function PropertyList(props: PropertyListProps) {
+//   return (
+//     <Suspense fallback={<Text>Loading search filters...</Text>}>
+//       <PropertyListContent {...props} />
+//     </Suspense>
+//   );
+// }

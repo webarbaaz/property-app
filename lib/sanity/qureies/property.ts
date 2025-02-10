@@ -40,6 +40,7 @@ export const propertyQuery = `*[_type == "property" && slug.current == $slug][0]
   size,
   carpetArea,
   parking,
+  projectType,
   city,
   locality-> {
 					_id,
