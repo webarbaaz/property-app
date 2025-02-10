@@ -1,7 +1,6 @@
 "use client";
 
 import { useInfiniteQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Link from "next/link";
 
@@ -10,6 +9,8 @@ import { Property } from "@/types";
 import PropertyCard from "./PropertyCard";
 import { Grid } from "@/app/component/ui/Grid";
 import Text from "@/app/component/ui/Text";
+import Loader from "./Loader";
+import { useSearchParams } from "next/navigation";
 
 interface PropertyFilters {
   propertyType?: string;
@@ -30,9 +31,9 @@ export default function PropertyList({
   showNoMore = false,
 }: PropertyListProps) {
   const searchParams = useSearchParams();
-
-  // ✅ Convert searchParams to filters
-  const mergedFilters = Object.fromEntries(searchParams.entries());
+  const projectType = searchParams.get("propertyType") ?? "";
+  const propertyStatus = searchParams.get("propertyStatus") ?? "";
+  const location = searchParams.get("location") ?? "";
 
   // ✅ Data Fetching with Infinite Scroll
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -40,11 +41,16 @@ export default function PropertyList({
       data: Property[];
       nextPage: number | null;
     }>({
-      queryKey: ["properties", mergedFilters],
+      queryKey: ["properties", filters],
       initialPageParam: 1,
       queryFn: async ({ pageParam }) => {
         const fetchedProperties = await getProperties(
-          { ...mergedFilters, ...filters },
+          {
+            ...filters,
+            propertyStatus: propertyStatus,
+            propertyType: projectType,
+            location,
+          },
           pageParam,
           limit
         );
@@ -58,7 +64,7 @@ export default function PropertyList({
 
   const properties = data?.pages.flatMap((page) => page.data) || [];
 
-  if (isLoading) return <Text>Loading properties...</Text>;
+  if (isLoading) return <Loader />;
   if (!properties.length) return <Text>No properties found.</Text>;
 
   return (
@@ -69,7 +75,8 @@ export default function PropertyList({
         hasMore={hasNextPage}
         loader={
           isFetchingNextPage ? <Text>Loading more properties...</Text> : null
-        }>
+        }
+      >
         <Grid cols={3} gap="lg">
           {properties.map((property) => (
             <Link key={property.slug} href={`/properties/${property.slug}`}>

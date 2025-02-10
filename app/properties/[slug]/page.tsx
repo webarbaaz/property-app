@@ -13,6 +13,7 @@ import { notFound, useParams } from "next/navigation";
 import { Property } from "@/types";
 import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { useEffect, useState } from "react";
+import Loader from "@/app/component/Loader";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
@@ -50,7 +51,7 @@ export default function PropertyPage() {
     fetchSingleProperty();
   }, [slug]); // Only re-run when slug changes
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (!property) return notFound();
   return (
     <MainLayout>

@@ -11,6 +11,7 @@ import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import MainLayout from "@/app/component/layout/MainLayout";
 import { useEffect, useState } from "react";
 import { TypedObject } from "@portabletext/types";
+import Loader from "@/app/component/Loader";
 
 // Define the expected PageProps type correctly
 // type PageProps = {
@@ -106,7 +107,7 @@ export default function Page() {
     fetchPageData();
   }, [slug]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loader />;
   if (!pageData) return <p>Page not found.</p>;
 
   return (

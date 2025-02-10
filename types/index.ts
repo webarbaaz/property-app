@@ -36,3 +36,9 @@ export interface LinkType {
   title: string;
   url: string;
 }
+
+export interface SearchTerm {
+  propertyStatus?: string;
+  propertyType?: string;
+  location?: string;
+}
