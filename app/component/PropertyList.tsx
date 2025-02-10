@@ -43,7 +43,7 @@ export default function PropertyList({
     }>({
       queryKey: ["properties", filters],
       initialPageParam: 1,
-      queryFn: async ({ pageParam }) => {
+      queryFn: async ({ pageParam = 1 }: { pageParam: number }) => {
         const fetchedProperties = await getProperties(
           {
             ...filters,
