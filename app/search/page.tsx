@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useMemo } from "react";
 import MainLayout from "../component/layout/MainLayout";
 import Stack from "../component/ui/Stack";
 import SearchBar from "../component/SearchBar";
@@ -7,14 +7,25 @@ import Container from "../component/ui/Container";
 import Text from "../component/ui/Text";
 import { useSearchParams } from "next/navigation";
 import PropertyList from "../component/PropertyList";
+import { useSite } from "../hooks/useSite";
 
 export default function Page() {
+  const { setSearchTerms } = useSite();
   const searchParams = useSearchParams();
-  const filters = {
-    propertyType: searchParams?.get("propertyType") || "",
-    propertyStatus: searchParams?.get("propertyStatus") || "",
-    location: searchParams?.get("location") || "",
-  };
+  // Extract search filters from URL
+  const searchFilters = useMemo(
+    () => ({
+      propertyType: searchParams.get("propertyType") ?? undefined,
+      propertyStatus: searchParams.get("propertyStatus") ?? undefined,
+      city: searchParams.get("city") ?? undefined,
+    }),
+    [searchParams]
+  );
+
+  // Update the global search terms
+  useEffect(() => {
+    setSearchTerms(searchFilters);
+  }, [searchFilters, setSearchTerms]);
 
   return (
     <MainLayout>
@@ -25,7 +36,7 @@ export default function Page() {
           </Text>
           <SearchBar />
           <Text size={"2xl"}>Search Results</Text>
-          <PropertyList filters={filters} />
+          <PropertyList filters={searchFilters} />
         </Stack>
       </Container>
     </MainLayout>

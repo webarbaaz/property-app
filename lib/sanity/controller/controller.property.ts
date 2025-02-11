@@ -2,7 +2,7 @@ import { client } from "../client";
 type Filter = {
   propertyType?: string;
   propertyStatus?: string;
-  location?: string;
+  city?: string;
   category?: string;
 };
 export async function getProperties(
@@ -10,7 +10,7 @@ export async function getProperties(
   page: number = 1,
   limit: number = 10
 ) {
-  const { propertyType, propertyStatus, location, category } = filters;
+  const { propertyType, propertyStatus, city, category } = filters;
 
   const start = (page - 1) * limit;
   const end = start + limit;
@@ -21,10 +21,10 @@ export async function getProperties(
     filterConditions.push(`projectType == "${propertyType}"`);
   }
   if (propertyStatus) {
-    filterConditions.push(`status == "${propertyStatus}"`);
+    filterConditions.push(`propertyStatus == "${propertyStatus}"`);
   }
-  if (location) {
-    filterConditions.push(`locality.city.name.current match "${location}"`);
+  if (city) {
+    filterConditions.push(`locality.city->name.current match "${city}"`);
   }
   if (category) {
     filterConditions.push(`category == ${category}`);

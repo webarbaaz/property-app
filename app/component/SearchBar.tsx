@@ -28,29 +28,26 @@ export default function SearchBar() {
   return (
     <Grid
       cols={4}
-      className="bg-white rounded-full px-12 py-6 border shadow-lg my-6"
-    >
-      <Stack>
+      className="bg-white rounded-full px-12 py-6 border shadow-lg my-6">
+      <Grid cols={"max4"}>
         <Text weight={"semibold"}>Type</Text>
         <select
           name="type"
           value={searchTerms.propertyType || ""}
           onChange={(e) => setSearchTerms({ propertyType: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
+          className="border p-2 rounded-lg">
           <option value="">All</option>
           <option value="property">Property</option>
           <option value="project">Project</option>
         </select>
-      </Stack>
+      </Grid>
       <Stack>
         <Text weight={"semibold"}>Status</Text>
         <select
           name="status"
           value={searchTerms.propertyStatus || ""}
           onChange={(e) => setSearchTerms({ propertyStatus: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
+          className="border p-2 rounded-lg">
           <option value="">All</option>
           <option value="ready-to-move">Ready To Move</option>
           <option value="new-project">New Project</option>
@@ -61,10 +58,9 @@ export default function SearchBar() {
         <Text weight={"semibold"}>Location</Text>
         <select
           name="location"
-          value={searchTerms.location || ""}
-          onChange={(e) => setSearchTerms({ location: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
+          value={searchTerms.city || ""}
+          onChange={(e) => setSearchTerms({ city: e.target.value })}
+          className="border p-2 rounded-lg">
           <option value="">All</option>
           <option value="mumbai">Mumbai</option>
           <option value="pune">Pune</option>
@@ -75,8 +71,7 @@ export default function SearchBar() {
       <Button
         onClick={onSearch}
         className="h-10 mt-auto"
-        disabled={isSearchDisabled}
-      >
+        disabled={isSearchDisabled}>
         Search Now
       </Button>
     </Grid>

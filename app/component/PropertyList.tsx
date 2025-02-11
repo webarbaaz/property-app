@@ -10,12 +10,11 @@ import PropertyCard from "./PropertyCard";
 import { Grid } from "@/app/component/ui/Grid";
 import Text from "@/app/component/ui/Text";
 import Loader from "./Loader";
-import { useSearchParams } from "next/navigation";
 
 interface PropertyFilters {
   propertyType?: string;
   propertyStatus?: string;
-  location?: string;
+  city?: string;
   category?: string;
 }
 
@@ -30,11 +29,6 @@ export default function PropertyList({
   limit = 10,
   showNoMore = false,
 }: PropertyListProps) {
-  const searchParams = useSearchParams();
-  const projectType = searchParams.get("propertyType") ?? "";
-  const propertyStatus = searchParams.get("propertyStatus") ?? "";
-  const location = searchParams.get("location") ?? "";
-
   // ✅ Data Fetching with Infinite Scroll
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
     useInfiniteQuery<{
@@ -43,20 +37,15 @@ export default function PropertyList({
     }>({
       queryKey: ["properties", filters],
       initialPageParam: 1,
-      queryFn: async ({ pageParam = 1 }: { pageParam: number }) => {
+      queryFn: async ({ pageParam = 1 }) => {
         const fetchedProperties = await getProperties(
-          {
-            ...filters,
-            propertyStatus: propertyStatus,
-            propertyType: projectType,
-            location,
-          },
-          pageParam,
+          filters,
+          pageParam as number,
           limit
         );
         return {
           data: fetchedProperties,
-          nextPage: fetchedProperties.length ? pageParam + 1 : null,
+          nextPage: fetchedProperties.length ? (pageParam as number) + 1 : null,
         };
       },
       getNextPageParam: (lastPage) => lastPage.nextPage,
@@ -75,8 +64,7 @@ export default function PropertyList({
         hasMore={hasNextPage}
         loader={
           isFetchingNextPage ? <Text>Loading more properties...</Text> : null
-        }
-      >
+        }>
         <Grid cols={3} gap="lg">
           {properties.map((property) => (
             <Link key={property.slug} href={`/properties/${property.slug}`}>
