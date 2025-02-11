@@ -6,6 +6,8 @@ type Store = {
   setMergedLinks: (links: LinkType[]) => void;
   searchTerms: SearchTerm;
   setSearchTerms: (searchTerms: SearchTerm) => void;
+  searchDialog: boolean;
+  closeSearchDialog: () => void;
 };
 
 export const useSite = create<Store>((set) => ({
@@ -23,4 +25,8 @@ export const useSite = create<Store>((set) => ({
         ...update, // Apply the update to only the relevant field
       },
     })),
+  searchDialog: false,
+  closeSearchDialog() {
+    set({ searchDialog: false });
+  },
 }));

@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       "plus.unsplash.com",
       "www.valueproperties.co.in",
       "cdn.sanity.io",
+      "www.facebook.com",
     ],
   },
 };
