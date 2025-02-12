@@ -14,6 +14,8 @@ import { Property } from "@/types";
 import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { useEffect, useState } from "react";
 import Loader from "@/app/component/Loader";
+import { PortableText } from "@portabletext/react";
+import { components } from "@/app/(otp)/[slug]/page";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
@@ -72,7 +74,7 @@ export default function PropertyPage() {
 
         <Container>
           <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-            <Stack className="col-span-8" spacing="2">
+            <Stack className="col-span-8" spacing="8">
               <HStack spacing="10">
                 <Text>Published on: 16-05-2020</Text>
                 <Text>{property.possessionDate}</Text>
@@ -92,59 +94,88 @@ export default function PropertyPage() {
               })}
               <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
                 <Stack spacing="6" className="col-span-2">
-                  <Text weight="semibold" size="xl">
-                    Property Details
-                  </Text>
-                  <table className="w-full border border-gray-300 rounded-lg overflow-hidden">
+                  <table className="w-full border-collapse border-gray-300 rounded-lg overflow-hidden">
                     <thead>
                       <tr className="bg-gray-100 text-left">
                         <th className="px-4 py-2 border">Feature</th>
-                        <th className="px-4 py-2 border">Details</th>
+                        <th className="px-4 py-2 border font-semibold">
+                          Details
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr>
-                        <td className="px-4 py-2 border">Project Type</td>
-                        <td className="px-4 py-2 border">
+                        <td className="px-4 py-2 border">Developer</td>
+                        <td className="px-4 py-2 border font-semibold">
                           {property.propertyType}
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Parking</td>
-                        <td className="px-4 py-2 border">{property.parking}</td>
+                        <td className="px-4 py-2 border">Location</td>
+                        <td className="px-4 py-2 border font-semibold">
+                          {property.parking}
+                        </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">City</td>
-                        <td className="px-4 py-2 border">
+                        <td className="px-4 py-2 border">Land Parcel</td>
+                        <td className="px-4 py-2 border font-semibold">
                           {property.locality.city.name.current}
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Location</td>
-                        <td className="px-4 py-2 border">
+                        <td className="px-4 py-2 border">Total Towers</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold">
                           {property.locality.name.current}
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Type</td>
-                        <td className="px-4 py-2 border">
+                        <td className="px-4 py-2 border">Total Floors</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold">
                           {property.size} BHK
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Property Price</td>
-                        <td className="px-4 py-2 border">{property.size}</td>
+                        <td className="px-4 py-2 border">Carpet Area</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
+                          {property.size}
+                        </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Name :</td>
-                        <td className="px-4 py-2 border">
+                        <td className="px-4 py-2 border">Price</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
                           {property.representativeName}
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">Contact :</td>
-                        <td className="px-4 py-2 border">
+                        <td className="px-4 py-2 border">Configuration</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
                           {property.representativeNumber}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Possession Date</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
+                          {property.representativeNumber}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">ReRa ID</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
+                          {property.representativeNumber}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Launch Date</td>
+                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
+                          {property.representativeNumber}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td className="px-4 py-2 border">Amenities</td>
+                        <td className="px-4 py-2 border font-semibold">
+                          {property?.amenities
+                            ?.map((amenity) => amenity.name.current)
+                            .join(", ")}
                         </td>
                       </tr>
                     </tbody>
@@ -153,27 +184,11 @@ export default function PropertyPage() {
 
                 <Stack spacing="6" className="col-span-3">
                   <Stack spacing="6">
-                    <Text weight="semibold" size="xl">
-                      Description
-                    </Text>
-                    <Text>{property.description}</Text>
-                  </Stack>
-
-                  <Stack spacing="6">
-                    <Text weight="semibold" size="xl">
-                      Amenities
-                    </Text>
-                    <Grid cols={2}>
-                      {property?.amenities?.map((amenity, index) => {
-                        console.log(amenity);
-                        return (
-                          <HStack key={index}>
-                            <FaCheckCircle />
-                            <Text>{amenity.name.current}</Text>
-                          </HStack>
-                        );
-                      })}
-                    </Grid>
+                    {/* <Text>{property.description}</Text> */}
+                    <PortableText
+                      value={property?.description}
+                      components={components}
+                    />
                   </Stack>
                 </Stack>
               </div>

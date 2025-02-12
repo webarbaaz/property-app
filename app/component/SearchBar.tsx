@@ -26,15 +26,16 @@ export default function SearchBar() {
   const isSearchDisabled = Object.values(searchTerms).every((val) => !val);
 
   return (
-    <Grid cols={"max4"} className="">
+    <Grid
+      cols={"max4"}
+      className="lg:bg-white lg:rounded-lg lg:shadow-lg lg:py-10 lg:px-8">
       <Stack>
         <Text weight={"semibold"}>Type</Text>
         <select
           name="type"
           value={searchTerms.propertyType || ""}
           onChange={(e) => setSearchTerms({ propertyType: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
+          className="border p-2 rounded-lg">
           <option value="">All</option>
           <option value="property">Property</option>
           <option value="project">Project</option>
@@ -46,8 +47,7 @@ export default function SearchBar() {
           name="status"
           value={searchTerms.propertyStatus || ""}
           onChange={(e) => setSearchTerms({ propertyStatus: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
+          className="border p-2 rounded-lg">
           <option value="">All</option>
           <option value="ready-to-move">Ready To Move</option>
           <option value="new-project">New Project</option>
@@ -60,8 +60,7 @@ export default function SearchBar() {
           name="location"
           value={searchTerms.city || ""}
           onChange={(e) => setSearchTerms({ city: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
+          className="border p-2 rounded-lg">
           <option value="">All</option>
           <option value="mumbai">Mumbai</option>
           <option value="pune">Pune</option>
@@ -72,8 +71,7 @@ export default function SearchBar() {
       <Button
         onClick={onSearch}
         className="h-10 mt-auto"
-        disabled={isSearchDisabled}
-      >
+        disabled={isSearchDisabled}>
         Search Now
       </Button>
     </Grid>

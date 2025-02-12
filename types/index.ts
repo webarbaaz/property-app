@@ -1,3 +1,5 @@
+import { TypedObject } from "@portabletext/types";
+
 interface Amenity {
   name: {
     current: string;
@@ -14,7 +16,7 @@ interface Locality {
 export interface Property {
   name: string;
   slug: string;
-  description: string;
+  description: TypedObject | TypedObject[];
   images: string[];
   propertyType: string;
   propertyStatus: string;

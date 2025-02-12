@@ -8,6 +8,7 @@ type Store = {
   setSearchTerms: (searchTerms: SearchTerm) => void;
   searchDialog: boolean;
   closeSearchDialog: () => void;
+  setSearchDialog: (value: boolean) => void;
 };
 
 export const useSite = create<Store>((set) => ({
@@ -29,4 +30,5 @@ export const useSite = create<Store>((set) => ({
   closeSearchDialog() {
     set({ searchDialog: false });
   },
+  setSearchDialog: (value) => set({ searchDialog: value }),
 }));

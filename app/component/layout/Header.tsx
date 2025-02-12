@@ -61,7 +61,10 @@ export default function Header() {
             </Link>
             <HStack className="hidden lg:block">
               {mergedLinks.map((link, idx) => (
-                <Link href={link.url} key={idx} className="p-2">
+                <Link
+                  href={link.url}
+                  key={idx}
+                  className="p-2 font-semibold text-lg">
                   {link.title}
                 </Link>
               ))}
@@ -70,8 +73,7 @@ export default function Header() {
             {/* Mobile Menu Button */}
             <Button
               className="lg:hidden"
-              onClick={() => setIsSidebarOpen(true)}
-            >
+              onClick={() => setIsSidebarOpen(true)}>
               <FaAlignLeft />
             </Button>
           </HStack>
@@ -83,8 +85,7 @@ export default function Header() {
         className={`fixed top-0 left-0 h-screen w-64 bg-white z-[100] shadow-xl transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
         }`}
-        style={{ position: "fixed" }}
-      >
+        style={{ position: "fixed" }}>
         {/* Close Button */}
         <div className="p-4 flex justify-end">
           <button onClick={() => setIsSidebarOpen(false)}>
@@ -98,9 +99,8 @@ export default function Header() {
             <Link
               key={idx}
               href={link.url}
-              className="text-black text-lg py-2"
-              onClick={() => setIsSidebarOpen(false)}
-            >
+              className="text-black text-lg py-2 font-semibold"
+              onClick={() => setIsSidebarOpen(false)}>
               {link.title}
             </Link>
           ))}
@@ -111,8 +111,7 @@ export default function Header() {
       {isSidebarOpen && (
         <div
           className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 z-[99]"
-          onClick={() => setIsSidebarOpen(false)}
-        ></div>
+          onClick={() => setIsSidebarOpen(false)}></div>
       )}
     </div>
   );

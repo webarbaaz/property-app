@@ -19,7 +19,7 @@ export default function Footer() {
   const { mergedLinks } = useSite();
   return (
     <>
-      <div className="bg-blue-500">
+      <div className="bg-gray-700">
         <Container className="py-10">
           <Grid cols={"max4"} gap={"xl"}>
             <Stack spacing={"6"}>
@@ -27,8 +27,7 @@ export default function Footer() {
                 className="uppercase"
                 weight={"bold"}
                 size={"lg"}
-                color="white"
-              >
+                color="white">
                 Contact Us
               </Text>
               <Stack>
@@ -59,8 +58,7 @@ export default function Footer() {
                 className="uppercase"
                 weight={"bold"}
                 size={"lg"}
-                color="white"
-              >
+                color="white">
                 Quick Links
               </Text>
               <Stack>
@@ -77,8 +75,7 @@ export default function Footer() {
                 className="uppercase"
                 weight={"bold"}
                 size={"lg"}
-                color="white"
-              >
+                color="white">
                 About Us
               </Text>
               <Stack>
@@ -96,20 +93,17 @@ export default function Footer() {
                 <HStack>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.facebook.com/valueproperties/"
-                  >
+                    href="https://www.facebook.com/valueproperties/">
                     <FaFacebook />
                   </Link>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.instagram.com/valueproperties/"
-                  >
+                    href="https://www.instagram.com/valueproperties/">
                     <FaInstagram />
                   </Link>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.twitter.com/valueproperties/"
-                  >
+                    href="https://www.twitter.com/valueproperties/">
                     <FaTwitter />
                   </Link>
                 </HStack>

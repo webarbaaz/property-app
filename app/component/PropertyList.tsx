@@ -22,12 +22,14 @@ interface PropertyListProps {
   filters?: PropertyFilters;
   limit?: number;
   showNoMore?: boolean;
+  isPaginated?: boolean;
 }
 
 export default function PropertyList({
   filters = {},
   limit = 10,
   showNoMore = false,
+  isPaginated = false,
 }: PropertyListProps) {
   // ✅ Data Fetching with Infinite Scroll
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage, isLoading } =
@@ -61,11 +63,11 @@ export default function PropertyList({
       <InfiniteScroll
         dataLength={properties.length}
         next={fetchNextPage}
-        hasMore={hasNextPage}
+        hasMore={!isPaginated && hasNextPage}
         loader={
           isFetchingNextPage ? <Text>Loading more properties...</Text> : null
         }>
-        <Grid cols={3} gap="lg">
+        <Grid cols={3} gap="sm">
           {properties.map((property) => (
             <Link key={property.slug} href={`/properties/${property.slug}`}>
               <PropertyCard property={property} />

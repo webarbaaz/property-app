@@ -32,16 +32,14 @@ export default function Home() {
           </Stack>
         </Container>
         <HStack
-          className="p-10 bg-blue-600"
+          className="p-10 bg-gray-700"
           alignItems={"center"}
-          justify={"between"}
-        >
+          justify={"between"}>
           <Text
             size={"2xl"}
             weight={"bold"}
             color="white"
-            className="uppercase"
-          >
+            className="uppercase">
             For more details
           </Text>
           <Button className="shadow-lg" color="transparent">
@@ -93,8 +91,7 @@ export default function Home() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20"
-                >
+                  className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20">
                   <div className="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-4">
                     {feature.icon}
                   </div>
