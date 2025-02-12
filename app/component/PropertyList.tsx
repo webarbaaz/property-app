@@ -5,7 +5,7 @@ import InfiniteScroll from "react-infinite-scroll-component";
 import Link from "next/link";
 
 import { getProperties } from "@/lib/sanity/controller/controller.property";
-import { Property } from "@/types";
+import { Flags, Property } from "@/types";
 import PropertyCard from "./PropertyCard";
 import { Grid } from "@/app/component/ui/Grid";
 import Text from "@/app/component/ui/Text";
@@ -16,6 +16,7 @@ interface PropertyFilters {
   propertyStatus?: string;
   city?: string;
   category?: string;
+  flags?: Flags;
 }
 
 interface PropertyListProps {
@@ -66,7 +67,8 @@ export default function PropertyList({
         hasMore={!isPaginated && hasNextPage}
         loader={
           isFetchingNextPage ? <Text>Loading more properties...</Text> : null
-        }>
+        }
+      >
         <Grid cols={3} gap="sm">
           {properties.map((property) => (
             <Link key={property.slug} href={`/properties/${property.slug}`}>

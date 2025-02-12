@@ -20,14 +20,15 @@ export default function Footer() {
   return (
     <>
       <div className="bg-gray-700">
-        <Container className="py-10">
+        <Container className="py-10 capitalize">
           <Grid cols={"max4"} gap={"xl"}>
             <Stack spacing={"6"}>
               <Text
                 className="uppercase"
                 weight={"bold"}
                 size={"lg"}
-                color="white">
+                color="white"
+              >
                 Contact Us
               </Text>
               <Stack>
@@ -38,7 +39,7 @@ export default function Footer() {
                   </Text>
                 </HStack>
                 <Text color="white">
-                  Value properties A Wing 801, Bhavya Supreme, G D Ambekar Marg,
+                  true value home A Wing 801, Bhavya Supreme, G D Ambekar Marg,
                   Near Haffkine Institute, Parel, Mumbai - 400012.
                 </Text>
               </Stack>
@@ -58,7 +59,8 @@ export default function Footer() {
                 className="uppercase"
                 weight={"bold"}
                 size={"lg"}
-                color="white">
+                color="white"
+              >
                 Quick Links
               </Text>
               <Stack>
@@ -75,12 +77,13 @@ export default function Footer() {
                 className="uppercase"
                 weight={"bold"}
                 size={"lg"}
-                color="white">
+                color="white"
+              >
                 About Us
               </Text>
               <Stack>
                 <Text color="white">
-                  Value Properties is the most innovative, creative and
+                  true value home is the most innovative, creative and
                   forward-thinking real estate organisation. At the core of our
                   business philosophy is a commitment to extraordinary service,
                   honesty, and clear communication. ... View More
@@ -93,17 +96,20 @@ export default function Footer() {
                 <HStack>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.facebook.com/valueproperties/">
+                    href="https://www.facebook.com/valueproperties/"
+                  >
                     <FaFacebook />
                   </Link>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.instagram.com/valueproperties/">
+                    href="https://www.instagram.com/valueproperties/"
+                  >
                     <FaInstagram />
                   </Link>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.twitter.com/valueproperties/">
+                    href="https://www.twitter.com/valueproperties/"
+                  >
                     <FaTwitter />
                   </Link>
                 </HStack>
@@ -116,7 +122,7 @@ export default function Footer() {
         <Container>
           <Stack spacing={"1"}>
             <Text size={"md"} color="white">
-              &copy; {new Date().getFullYear()} Value Properties. All rights
+              &copy; {new Date().getFullYear()} true value home. All rights
               reserved.
             </Text>
           </Stack>

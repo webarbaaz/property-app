@@ -35,7 +35,7 @@ export default function BreadCrumb() {
   path = [{ label: "Home", href: "/" }, ...path];
 
   return (
-    <div className="bg-black p-2">
+    <div className="bg-gray-700 p-2">
       <Container>
         <nav className="flex flex-wrap items-center text-white text-sm">
           {path.map((x, i) => (

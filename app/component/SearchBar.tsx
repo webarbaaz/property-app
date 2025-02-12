@@ -2,10 +2,12 @@
 import React, { useCallback } from "react";
 import { Grid } from "./ui/Grid";
 import Stack from "./ui/Stack";
-import Text from "./ui/Text";
+// import Text from "./ui/Text";
 import Button from "./ui/Button";
 import { useRouter } from "next/navigation";
 import { useSite } from "../hooks/useSite";
+// import HStack from "./ui/HStack";
+import { Search } from "lucide-react";
 
 export default function SearchBar() {
   const router = useRouter();
@@ -28,26 +30,29 @@ export default function SearchBar() {
   return (
     <Grid
       cols={"max4"}
-      className="lg:bg-white lg:rounded-lg lg:shadow-lg lg:py-10 lg:px-8">
+      className="w-full max-w-4xl lg:bg-white lg:py-6 lg:px-8"
+    >
       <Stack>
-        <Text weight={"semibold"}>Type</Text>
+        {/* <Text weight={"semibold"}>Type</Text> */}
         <select
           name="type"
           value={searchTerms.propertyType || ""}
           onChange={(e) => setSearchTerms({ propertyType: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           <option value="property">Property</option>
           <option value="project">Project</option>
         </select>
       </Stack>
       <Stack>
-        <Text weight={"semibold"}>Status</Text>
+        {/* <Text weight={"semibold"}>Status</Text> */}
         <select
           name="status"
           value={searchTerms.propertyStatus || ""}
           onChange={(e) => setSearchTerms({ propertyStatus: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           <option value="ready-to-move">Ready To Move</option>
           <option value="new-project">New Project</option>
@@ -55,23 +60,25 @@ export default function SearchBar() {
         </select>
       </Stack>
       <Stack>
-        <Text weight={"semibold"}>Location</Text>
+        {/* <Text weight={"semibold"}>Location</Text> */}
         <select
           name="location"
           value={searchTerms.city || ""}
           onChange={(e) => setSearchTerms({ city: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           <option value="mumbai">Mumbai</option>
           <option value="pune">Pune</option>
           <option value="delhi">Delhi</option>
         </select>
       </Stack>
-
       <Button
         onClick={onSearch}
-        className="h-10 mt-auto"
-        disabled={isSearchDisabled}>
+        className="h-10 mt-auto rounded-full"
+        disabled={isSearchDisabled}
+      >
+        <Search className="w-6 h-6" />
         Search Now
       </Button>
     </Grid>

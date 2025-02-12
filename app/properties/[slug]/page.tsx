@@ -1,14 +1,14 @@
 "use client";
 import MainLayout from "@/app/component/layout/MainLayout";
 import Container from "@/app/component/ui/Container";
-import { Grid } from "@/app/component/ui/Grid";
+// import { Grid } from "@/app/component/ui/Grid";
 import HStack from "@/app/component/ui/HStack";
 import Stack from "@/app/component/ui/Stack";
 import Text from "@/app/component/ui/Text";
 import { propertyQuery } from "@/lib/sanity/qureies/property";
 import { client } from "@/lib/sanity/client";
 import Image from "next/image";
-import { FaCheckCircle } from "react-icons/fa";
+// import { FaCheckCircle } from "react-icons/fa";
 import { notFound, useParams } from "next/navigation";
 import { Property } from "@/types";
 import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
@@ -16,6 +16,7 @@ import { useEffect, useState } from "react";
 import Loader from "@/app/component/Loader";
 import { PortableText } from "@portabletext/react";
 import { components } from "@/app/(otp)/[slug]/page";
+import { MapPin } from "lucide-react";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
@@ -58,28 +59,32 @@ export default function PropertyPage() {
   return (
     <MainLayout>
       <Stack className="pb-10">
-        <div className="bg-gray-300 p-6">
+        <div className="p-6">
           <Container>
             <Stack>
               <Text color="black" weight="bold" size="2xl">
                 {property.name}
               </Text>
-              <Text>
-                {property.locality.name.current},{" "}
-                {property.locality.city.name.current}
-              </Text>
+              <HStack>
+                <MapPin />
+                <Text>
+                  {property.locality.name.current},{" "}
+                  {property.locality.city.name.current}
+                </Text>
+              </HStack>
             </Stack>
           </Container>
         </div>
 
         <Container>
-          <div className="grid grid-cols-1 gap-4 md:grid-cols-12">
-            <Stack className="col-span-8" spacing="8">
-              <HStack spacing="10">
+          {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-12"> */}
+          <div className="">
+            <Stack className="" spacing="8">
+              {/* <HStack spacing="10">
                 <Text>Published on: 16-05-2020</Text>
                 <Text>{property.possessionDate}</Text>
                 <Text>{property.carpetArea} sqft</Text>
-              </HStack>
+              </HStack> */}
               {property.images.map((image, index) => {
                 return (
                   <Image
@@ -87,12 +92,12 @@ export default function PropertyPage() {
                     src={generateImageUrl(image) ?? "/placeholder.jpg"}
                     width={1920}
                     height={1080}
-                    className="rounded-lg"
+                    className="rounded-lg max-h-[800px] object-cover"
                     alt={property.name}
                   />
                 );
               })}
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-5">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
                 <Stack spacing="6" className="col-span-2">
                   <table className="w-full border-collapse border-gray-300 rounded-lg overflow-hidden">
                     <thead>
@@ -107,67 +112,67 @@ export default function PropertyPage() {
                       <tr>
                         <td className="px-4 py-2 border">Developer</td>
                         <td className="px-4 py-2 border font-semibold">
-                          {property.propertyType}
+                          {property.developer}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Location</td>
                         <td className="px-4 py-2 border font-semibold">
-                          {property.parking}
+                          {property.locality.name.current}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Land Parcel</td>
                         <td className="px-4 py-2 border font-semibold">
-                          {property.locality.city.name.current}
+                          {property.landParcel}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Total Towers</td>
                         <td className="px-4 py-2 border font-semibold font-semibold">
-                          {property.locality.name.current}
+                          {property.totalTowers}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Total Floors</td>
                         <td className="px-4 py-2 border font-semibold font-semibold">
-                          {property.size} BHK
+                          {property.totalFloors}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Carpet Area</td>
                         <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
-                          {property.size}
+                          {property?.carpetArea}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Price</td>
                         <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
-                          {property.representativeName}
+                          {property.price}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Configuration</td>
                         <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
-                          {property.representativeNumber}
+                          {property?.size.join(", ")}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Possession Date</td>
                         <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
-                          {property.representativeNumber}
+                          {property.possessionDate}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">ReRa ID</td>
                         <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
-                          {property.representativeNumber}
+                          {property.reRaId}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Launch Date</td>
                         <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
-                          {property.representativeNumber}
+                          {property.launchDate}
                         </td>
                       </tr>
                       <tr>
@@ -195,7 +200,7 @@ export default function PropertyPage() {
             </Stack>
 
             {/* Sidebar Placeholder */}
-            <Stack className="col-span-4"></Stack>
+            {/* <Stack className="col-span-4"></Stack> */}
           </div>
         </Container>
       </Stack>

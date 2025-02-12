@@ -6,6 +6,14 @@ interface Amenity {
   };
   icon: string;
 }
+
+export interface Flags {
+  isFeatured?: boolean;
+  isUnderConstruction?: boolean;
+  isExclusive?: boolean;
+  isLatest?: boolean;
+  isHotDeal?: boolean;
+}
 interface Locality {
   _id: string;
   name: { current: string };
@@ -20,18 +28,23 @@ export interface Property {
   images: string[];
   propertyType: string;
   propertyStatus: string;
-  size: number;
-  carpetArea: number;
-  parking: number;
+  size: string[];
+  carpetArea: string;
   city: string;
   locality: Locality;
   category: string;
-  price: number;
-  dealerContact: string;
+  price: string;
   amenities: Amenity[];
+  developer: string;
+  landParcel: string;
+  totalTowers: number;
+  totalFloors: number;
+  buildUpArea: string;
+  configuration: string;
   possessionDate: string;
-  representativeName: string;
-  representativeNumber: number;
+  reRaId: string;
+  launchDate: string;
+  flags: Flags;
 }
 
 export interface LinkType {

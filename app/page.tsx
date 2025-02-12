@@ -20,26 +20,55 @@ export default function Home() {
         <Carousel />
         <Container>
           <Stack spacing={"6"}>
-            <HStack justify={"between"}>
-              <Text size={"2xl"} weight={"bold"} className="uppercase">
-                Prime 2 And 3 BHK East PRojects
+            <HStack justify={"between"} className="w-full">
+              <Text size={"2xl"} weight={"bold"} className="capitalize">
+                Hot Deals
               </Text>
               <Button variant={"outline"} color="transparent">
                 View All
               </Button>
             </HStack>
-            <PropertyList limit={4} />
+            <PropertyList
+              filters={{
+                flags: {
+                  isHotDeal: true,
+                },
+              }}
+              isPaginated={false}
+              limit={4}
+            />
+          </Stack>
+          <Stack spacing={"6"}>
+            <HStack justify={"between"} className="w-full">
+              <Text size={"2xl"} weight={"bold"} className="capitalize">
+                Latest Properties
+              </Text>
+              <Button variant={"outline"} color="transparent">
+                View All
+              </Button>
+            </HStack>
+            <PropertyList
+              limit={4}
+              filters={{
+                flags: {
+                  isLatest: true,
+                },
+              }}
+              isPaginated={false}
+            />
           </Stack>
         </Container>
         <HStack
           className="p-10 bg-gray-700"
           alignItems={"center"}
-          justify={"between"}>
+          justify={"between"}
+        >
           <Text
             size={"2xl"}
             weight={"bold"}
             color="white"
-            className="uppercase">
+            className="capitalize"
+          >
             For more details
           </Text>
           <Button className="shadow-lg" color="transparent">
@@ -48,28 +77,44 @@ export default function Home() {
         </HStack>
         <Container>
           <Stack spacing={"6"}>
-            <HStack justify={"between"}>
-              <Text size={"2xl"} weight={"bold"} className="uppercase">
-                Premium 3 and 4BHK Residential East Projects
+            <HStack justify={"between"} className="w-full">
+              <Text size={"2xl"} weight={"bold"} className="capitalize">
+                Featured Properties
               </Text>
               <Button variant={"outline"} color="transparent">
                 View All
               </Button>
             </HStack>
-            <PropertyList limit={4} />
+            <PropertyList
+              limit={4}
+              filters={{
+                flags: {
+                  isFeatured: true,
+                },
+              }}
+              isPaginated={false}
+            />
           </Stack>
         </Container>
         <Container>
           <Stack spacing={"6"}>
-            <HStack justify={"between"}>
-              <Text size={"2xl"} weight={"bold"} className="uppercase">
-                Premium 3 and 4BHK Residential West Projects
+            <HStack justify={"between"} className="w-full">
+              <Text size={"2xl"} weight={"bold"} className="capitalize">
+                Under construction Properties
               </Text>
               <Button variant={"outline"} color="transparent">
                 View All
               </Button>
             </HStack>
-            <PropertyList limit={4} />
+            <PropertyList
+              limit={4}
+              filters={{
+                flags: {
+                  isUnderConstruction: true,
+                },
+              }}
+              isPaginated={false}
+            />
           </Stack>
         </Container>
         <section className="relative py-16 md:py-24 overflow-hidden">
@@ -91,7 +136,8 @@ export default function Home() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20">
+                  className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20"
+                >
                   <div className="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-4">
                     {feature.icon}
                   </div>
@@ -106,30 +152,26 @@ export default function Home() {
         </section>
         <Container>
           <Stack spacing={"6"}>
-            <HStack justify={"between"}>
-              <Text size={"2xl"} weight={"bold"} className="uppercase">
-                Property For Sale
+            <HStack justify={"between"} className="w-full">
+              <Text size={"2xl"} weight={"bold"} className="capitalize">
+                Exclusive Properties
               </Text>
               <Button variant={"outline"} color="transparent">
                 View All
               </Button>
             </HStack>
-            <PropertyList limit={4} />
+            <PropertyList
+              filters={{
+                flags: {
+                  isExclusive: true,
+                },
+              }}
+              isPaginated={false}
+              limit={4}
+            />
           </Stack>
         </Container>
-        <Container>
-          <Stack spacing={"6"}>
-            <HStack justify={"between"}>
-              <Text size={"2xl"} weight={"bold"} className="uppercase">
-                Properties For Rent
-              </Text>
-              <Button variant={"outline"} color="transparent">
-                View All
-              </Button>
-            </HStack>
-            <PropertyList limit={4} />
-          </Stack>
-        </Container>
+
         <CustomerReviews />
         <Brands />
       </Stack>

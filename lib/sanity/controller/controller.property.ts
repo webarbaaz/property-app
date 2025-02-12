@@ -1,16 +1,18 @@
+import { Flags } from "@/types";
 import { client } from "../client";
 type Filter = {
   propertyType?: string;
   propertyStatus?: string;
   city?: string;
   category?: string;
+  flags?: Flags;
 };
 export async function getProperties(
   filters: Filter = {},
   page: number = 1,
   limit: number = 10
 ) {
-  const { propertyType, propertyStatus, city, category } = filters;
+  const { propertyType, propertyStatus, city, category, flags } = filters;
 
   const start = (page - 1) * limit;
   const end = start + limit;
@@ -27,7 +29,26 @@ export async function getProperties(
     filterConditions.push(`locality.city->name.current match "${city}"`);
   }
   if (category) {
-    filterConditions.push(`category == ${category}`);
+    if (Array.isArray(category)) {
+      filterConditions.push(`category[] in ${JSON.stringify(category)}`);
+    } else {
+      filterConditions.push(`"${category}" in category`);
+    }
+  }
+  if (flags?.isFeatured) {
+    filterConditions.push(`isFeatured == true`);
+  }
+  if (flags?.isExclusive) {
+    filterConditions.push(`isExclusive == true`);
+  }
+  if (flags?.isHotDeal) {
+    filterConditions.push(`isHotDeal == true`);
+  }
+  if (flags?.isUnderConstruction) {
+    filterConditions.push(`isUnderConstruction == true`);
+  }
+  if (flags?.isLatest) {
+    filterConditions.push(`isLatest == true`);
   }
 
   const query = `*[
