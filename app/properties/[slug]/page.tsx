@@ -15,8 +15,8 @@ import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { useEffect, useState } from "react";
 import Loader from "@/app/component/Loader";
 import { PortableText } from "@portabletext/react";
-import { components } from "@/app/(otp)/[slug]/page";
 import { MapPin } from "lucide-react";
+import { EditorFormatter } from "@/app/component/EditorFormatter";
 
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
@@ -192,7 +192,7 @@ export default function PropertyPage() {
                     {/* <Text>{property.description}</Text> */}
                     <PortableText
                       value={property?.description}
-                      components={components}
+                      components={EditorFormatter}
                     />
                   </Stack>
                 </Stack>

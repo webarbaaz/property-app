@@ -54,19 +54,27 @@ export async function getProperties(
   const query = `*[
       ${filterConditions.join(" && ")}
     ] | order(_createdAt desc) [${start}...${end}] {
-      _id,
       "slug": slug.current,
-      name,
-      description,
-      images,
-      size,
-      price,
-      category,
       propertyStatus,
-      locality {
-        name { current },
-        city { name { current } }
-      }
+        _id,
+    name,
+  description,
+  images,
+  type,
+  size,
+  buildUpArea,
+  locality-> {
+					_id,
+					name,
+					city-> {
+						name
+					},
+},
+  category,
+  price,
+  reRaId,
+  possessionDate,
+  carpetArea,
     }`;
 
   return await client.fetch(query, {
