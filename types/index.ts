@@ -56,4 +56,5 @@ export interface SearchTerm {
   propertyStatus?: string;
   propertyType?: string;
   city?: string;
+  configuration?: string;
 }

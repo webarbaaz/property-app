@@ -43,7 +43,8 @@ export default function RootLayout({
           'https://connect.facebook.net/en_US/fbevents.js');
           fbq('init', '586440537647028');
           fbq('track', 'PageView');`,
-          }}></script>
+          }}
+        ></script>
         {/* Facebook Pixel Verification */}
         <meta
           name="facebook-domain-verification"
@@ -51,7 +52,8 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {/* NoScript Tracking for Facebook Pixel */}
         <Image
           height={1}

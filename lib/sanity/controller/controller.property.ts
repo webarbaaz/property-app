@@ -84,3 +84,23 @@ export async function getProperties(
     // category,
   });
 }
+
+export async function getProjectTypes() {
+  const query = `
+  *[_type == "projectType"] {
+    title
+  }
+  `;
+
+  return await client.fetch(query);
+}
+
+export async function getLocations() {
+  const query = `*[_type == "locality"] { _id, name }`;
+  return await client.fetch(query);
+}
+
+export async function getSizes() {
+  const query = `*[_type == "size"] { size }`;
+  return await client.fetch(query);
+}

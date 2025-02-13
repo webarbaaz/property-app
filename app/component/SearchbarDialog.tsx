@@ -1,23 +1,17 @@
 "use client";
 import React from "react";
-import SearchBar from "./SearchBar";
-import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
-import { useSite } from "../hooks/useSite";
+// import SearchBar from "./SearchBar";
+// import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 export default function SearchbarDialog() {
-  const { setSearchDialog, searchDialog } = useSite();
   return (
     <div>
-      <Dialog
-        open={searchDialog}
-        onOpenChange={(value) => {
-          setSearchDialog(value);
-        }}>
+      {/* <Dialog open={true}>
+        <DialogTitle>Edit profile</DialogTitle>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogTitle>Search Property</DialogTitle>
           <SearchBar />
         </DialogContent>
-      </Dialog>
+      </Dialog> */}
     </div>
   );
 }
