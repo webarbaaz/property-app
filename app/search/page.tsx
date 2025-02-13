@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import MainLayout from "../component/layout/MainLayout";
 import Stack from "../component/ui/Stack";
 import SearchBar from "../component/SearchBar";
@@ -7,11 +7,11 @@ import Container from "../component/ui/Container";
 import Text from "../component/ui/Text";
 import { useSearchParams } from "next/navigation";
 import PropertyList from "../component/PropertyList";
-import { useSite } from "../hooks/useSite";
-import isEqual from "lodash/isEqual";
+// import { useSite } from "../hooks/useSite";
+// import isEqual from "lodash/isEqual";
 
 export default function Page() {
-  const { searchTerms, setSearchTerms } = useSite();
+  // const { searchTerms, setSearchTerms } = useSite();
   const searchParams = useSearchParams();
 
   // Extract search filters from URL
@@ -24,12 +24,12 @@ export default function Page() {
     [searchParams]
   );
 
-  // Update global search terms only if they change
-  useEffect(() => {
-    if (!isEqual(searchTerms, searchFilters)) {
-      setSearchTerms(searchFilters);
-    }
-  }, [searchFilters, searchTerms, setSearchTerms]);
+  // // Update global search terms only if they change
+  // useEffect(() => {
+  //   if (!isEqual(searchTerms, searchFilters)) {
+  //     setSearchTerms(searchFilters);
+  //   }
+  // }, [searchFilters, searchTerms, setSearchTerms]);
 
   return (
     <MainLayout>
