@@ -3,17 +3,18 @@ import { client } from "../client";
 type Filter = {
   propertyType?: string;
   propertyStatus?: string;
-  city?: string;
+  locality?: string;
   category?: string;
   flags?: Flags;
+  configuration?: string;
 };
 export async function getProperties(
   filters: Filter = {},
   page: number = 1,
   limit: number = 10
 ) {
-  const { propertyType, propertyStatus, city, category, flags } = filters;
-
+  const { propertyType, propertyStatus, locality, category, flags, configuration } =
+    filters;
   const start = (page - 1) * limit;
   const end = start + limit;
 
@@ -25,15 +26,11 @@ export async function getProperties(
   if (propertyStatus) {
     filterConditions.push(`propertyStatus == "${propertyStatus}"`);
   }
-  if (city) {
-    filterConditions.push(`locality.city->name.current match "${city}"`);
+  if (locality) {
+    filterConditions.push(`locality.name.current match "${locality}"`);
   }
   if (category) {
-    if (Array.isArray(category)) {
-      filterConditions.push(`category[] in ${JSON.stringify(category)}`);
-    } else {
-      filterConditions.push(`"${category}" in category`);
-    }
+    filterConditions.push(`category->slug.current == "${category}"`);
   }
   if (flags?.isFeatured) {
     filterConditions.push(`isFeatured == true`);
@@ -49,6 +46,10 @@ export async function getProperties(
   }
   if (flags?.isLatest) {
     filterConditions.push(`isLatest == true`);
+  }
+
+  if (configuration) {
+    filterConditions.push(`"${[configuration]}" in size`);
   }
 
   const query = `*[
@@ -70,7 +71,9 @@ export async function getProperties(
 						name
 					},
 },
-  category,
+  category -> {
+    name,
+  },
   price,
   reRaId,
   possessionDate,
@@ -102,5 +105,11 @@ export async function getLocations() {
 
 export async function getSizes() {
   const query = `*[_type == "size"] { size }`;
+  return await client.fetch(query);
+}
+
+export async function getCategories() {
+  const query = `*[_type == "category"] | order(_createdAt asc) { _id, name,
+    "slug": slug.current}`;
   return await client.fetch(query);
 }

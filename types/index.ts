@@ -55,6 +55,6 @@ export interface LinkType {
 export interface SearchTerm {
   propertyStatus?: string;
   propertyType?: string;
-  city?: string;
+  locality?: string;
   configuration?: string;
 }

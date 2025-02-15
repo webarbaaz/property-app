@@ -17,7 +17,8 @@ export const useSite = create<Store>((set) => ({
   searchTerms: {
     propertyStatus: "",
     propertyType: "",
-    city: "",
+    locality: "",
+    configuration: "",
   },
   setSearchTerms: (update) =>
     set((state) => ({

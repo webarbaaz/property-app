@@ -19,7 +19,8 @@ export default function Page() {
     () => ({
       propertyType: searchParams.get("propertyType") ?? undefined,
       propertyStatus: searchParams.get("propertyStatus") ?? undefined,
-      city: searchParams.get("city") ?? undefined,
+      locality: searchParams.get("locality") ?? undefined,
+      configuration: searchParams.get("configuration") ?? undefined
     }),
     [searchParams]
   );

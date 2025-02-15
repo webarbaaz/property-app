@@ -14,9 +14,10 @@ import Loader from "./Loader";
 interface PropertyFilters {
   propertyType?: string;
   propertyStatus?: string;
-  city?: string;
+  locality?: string;
   category?: string;
   flags?: Flags;
+  configuration?: string;
 }
 
 interface PropertyListProps {
