@@ -13,7 +13,7 @@ import { FaClock, FaThumbsUp } from "react-icons/fa6";
 import CustomerReviews from "./component/module/Home/CustomerReviews";
 import Brands from "./component/module/Home/Brands";
 import PropertyList from "./component/PropertyList";
-import { getCategories } from "@/lib/sanity/controller/controller.property";
+import { getCategories, getReviews } from "@/lib/sanity/controller/controller.property";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 
@@ -23,6 +23,8 @@ type Category = {
   slug: string;
 };
 
+
+
 export default function Home() {
   const [categories, setCategories] = useState<Category[]>([]);
   const fetchCategories = useCallback(async () => {
@@ -31,6 +33,7 @@ export default function Home() {
       setCategories(catD);
     }
   }, []);
+
 
   useEffect(() => {
     fetchCategories();
@@ -47,7 +50,7 @@ export default function Home() {
                 <Text size={"2xl"} weight={"bold"} className="capitalize">
                   {category.name}
                 </Text>
-                <Link href={`/properties/${category.slug}`}>
+                <Link href={`/properties?category=${category.slug}`}>
                   <Button variant={"outline"} color="transparent">
                     View All
                   </Button>
@@ -61,21 +64,6 @@ export default function Home() {
             </Stack>
           ))}
         </Container>
-        <HStack
-          className="p-10 bg-gray-700"
-          alignItems={"center"}
-          justify={"between"}>
-          <Text
-            size={"2xl"}
-            weight={"bold"}
-            color="white"
-            className="capitalize">
-            For more details
-          </Text>
-          <Button className="shadow-lg" color="transparent">
-            Contact Us
-          </Button>
-        </HStack>
         <section className="relative py-16 md:py-24 overflow-hidden">
           <div className="absolute inset-0 z-0">
             <Image
@@ -108,6 +96,21 @@ export default function Home() {
             </Grid>
           </div>
         </section>
+        <HStack
+          className="p-10 bg-gray-700"
+          alignItems={"center"}
+          justify={"between"}>
+          <Text
+            size={"2xl"}
+            weight={"bold"}
+            color="white"
+            className="capitalize">
+            For more details
+          </Text>
+          <Button className="shadow-lg" color="transparent">
+            <Link href={'/contact-us'}>Contact Us</Link>
+          </Button>
+        </HStack>
         <CustomerReviews />
         <Brands />
       </Stack>

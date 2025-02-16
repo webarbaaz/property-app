@@ -14,6 +14,7 @@ import {
 import HStack from "../ui/HStack";
 import Link from "next/link";
 import { useSite } from "@/app/hooks/useSite";
+import { PhoneCall } from "lucide-react";
 
 export default function Footer() {
   const { mergedLinks } = useSite();
@@ -39,8 +40,7 @@ export default function Footer() {
                   </Text>
                 </HStack>
                 <Text color="white">
-                  true value home A Wing 801, Bhavya Supreme, G D Ambekar Marg,
-                  Near Haffkine Institute, Parel, Mumbai - 400012.
+                Sales Experience Gallery, L&T Realty, Mori Rd, near St. Michael's Church, Mahim, Mumbai, Maharashtra 400016
                 </Text>
               </Stack>
               <Stack>
@@ -50,7 +50,14 @@ export default function Footer() {
                     Email:
                   </Text>
                 </HStack>
-                <Text color="white">test@gmail.com</Text>
+                <Link href={'mailto:Raziq.khan@truevaluehome.in'} className="text-white">Raziq.khan@truevaluehome.in</Link>
+                <HStack>
+                  <PhoneCall className="text-white h-6 w-6" />
+                  <Text color="white" weight={"bold"}>
+                    Phone:
+                  </Text>
+                </HStack>
+                <Link href={'tel:7030187000'} className="text-white">7030187000</Link>
               </Stack>
             </Stack>
             {/* quick links  */}
@@ -65,9 +72,9 @@ export default function Footer() {
               </Text>
               <Stack>
                 {mergedLinks.map((link) => (
-                  <Stack key={link.title} spacing={"2"}>
+                  <Link key={link.title} href={link.url}>
                     <Text color="white">{link.title}</Text>
-                  </Stack>
+                  </Link>
                 ))}
               </Stack>
             </Stack>
@@ -83,10 +90,7 @@ export default function Footer() {
               </Text>
               <Stack>
                 <Text color="white">
-                  true value home is the most innovative, creative and
-                  forward-thinking real estate organisation. At the core of our
-                  business philosophy is a commitment to extraordinary service,
-                  honesty, and clear communication. ... View More
+                At True Value Home, we don’t just sell properties—we build dreams and create lasting value. Let us help you find the right place to call home.
                 </Text>
               </Stack>
               <Stack>

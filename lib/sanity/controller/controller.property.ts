@@ -21,13 +21,13 @@ export async function getProperties(
   const filterConditions = [`_type == "property"`];
 
   if (propertyType) {
-    filterConditions.push(`projectType == "${propertyType}"`);
+    filterConditions.push(`projectType->slug.current == "${propertyType}"`);
   }
   if (propertyStatus) {
     filterConditions.push(`propertyStatus == "${propertyStatus}"`);
   }
   if (locality) {
-    filterConditions.push(`locality.name.current match "${locality}"`);
+    filterConditions.push(`locality->slug.current == "${locality}"`);
   }
   if (category) {
     filterConditions.push(`category->slug.current == "${category}"`);
@@ -112,4 +112,14 @@ export async function getCategories() {
   const query = `*[_type == "category"] | order(_createdAt asc) { _id, name,
     "slug": slug.current}`;
   return await client.fetch(query);
+}
+
+
+export async function getReviews () {
+  const query = `*[_type == "review"] {
+  author,
+  rating,
+  reviewText,
+  }`
+  return await client.fetch(query)
 }

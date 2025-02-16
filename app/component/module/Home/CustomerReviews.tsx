@@ -1,4 +1,6 @@
+import { getReviews } from "@/lib/sanity/controller/controller.property";
 import Image from "next/image";
+import { useCallback, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
 const reviews = [
@@ -30,8 +32,27 @@ const reviews = [
     rating: 5,
   },
 ];
-
+type Review = {
+  author: string;
+  rating: number;
+  reviewText: string
+}
 export default function CustomerReviews() {
+    const [reviews, setReviews] = useState<Review[]>([])
+  
+  const fetchReviews = useCallback (async () => {
+    const res =await getReviews()
+    if (res) {
+      setReviews(res)
+    }
+  },[])
+
+  useEffect(()=>{
+    fetchReviews()
+  },[fetchReviews])
+
+  if (reviews.length < 1) return
+
   return (
     <section className="py-16 bg-gray-50">
       <div className="container mx-auto px-4">
@@ -39,25 +60,25 @@ export default function CustomerReviews() {
           What Our Clients Say
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {reviews.map((review) => (
+          {reviews.map((review, idx) => (
             <div
-              key={review.id}
+              key={idx}
               className="bg-white p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105"
             >
               <div className="flex items-center mb-4">
                 <Image
-                  src={review.image || "/placeholder.svg"}
-                  alt={review.name}
+                  src={ "/placeholder.svg"}
+                  alt={'demo'}
                   width={60}
                   height={60}
                   className="rounded-full"
                 />
                 <div className="ml-4">
-                  <h3 className="font-semibold text-lg">{review.name}</h3>
-                  <p className="text-gray-600 text-sm">{review.role}</p>
+                  <h3 className="font-semibold text-lg">{review.author}</h3>
+                  {/* <p className="text-gray-600 text-sm">{review.role}</p> */}
                 </div>
               </div>
-              <p className="text-gray-700 mb-4">&quot;{review.review}&quot;</p>
+              <p className="text-gray-700 mb-4">&quot;{review.reviewText}&quot;</p>
               <div className="flex">
                 {[...Array(review.rating)].map((_, i) => (
                   <FaStar

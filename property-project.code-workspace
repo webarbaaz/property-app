@@ -1,10 +1,10 @@
 {
     "folders": [
         {
-            "path": "../property-admin"
+            "path": "."
         },
         {
-            "path": "."
+            "path": "../sanity"
         }
     ]
 }

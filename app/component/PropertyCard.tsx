@@ -41,11 +41,11 @@ export default function PropertyCard({ property }: Props) {
           </Stack>
           <Stack spacing={"1"}>
             <Text className="text-gray-500">Configuration</Text>
-            <Text className="font-semibold">{property?.size}</Text>
+            <Text className="font-semibold">{property?.size.join(", ")}</Text>
           </Stack>
           <Stack spacing={"1"} className="border-r-2">
-            <Text className="text-gray-500">Built up Area</Text>
-            <Text className="font-semibold">{property?.buildUpArea}</Text>
+            <Text className="text-gray-500">RERA ID</Text>
+            <Text className="font-semibold">{property?.reRaId}</Text>
           </Stack>
           <Stack spacing={"1"}>
             <Text className="text-gray-500">Possession Date</Text>
