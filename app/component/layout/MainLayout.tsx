@@ -4,7 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import BreadCrumb from "../Breadcrum";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import SearchbarDialog from "../SearchbarDialog";
+import LeadDialog from "../LeadDialog";
+import { ToastContainer } from 'react-toastify';
 
 type Props = {
   children: ReactNode;
@@ -15,7 +16,8 @@ export default function MainLayout({ children }: Props) {
   return (
     <>
       <QueryClientProvider client={queryClient}>
-        <SearchbarDialog />
+      <ToastContainer />
+        <LeadDialog />
         <Header />
         <BreadCrumb />
         {children}

@@ -5,12 +5,15 @@ import Text from "./ui/Text";
 import { Property } from "@/types";
 import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { Grid } from "./ui/Grid";
+import Button from "./ui/Button";
+import { useSite } from "../hooks/useSite";
 
 type Props = {
   property: Property;
 };
 
 export default function PropertyCard({ property }: Props) {
+  const {setProperty, setLeadDialog} = useSite()
   return (
     <Stack
       spacing={"0"}
@@ -22,7 +25,7 @@ export default function PropertyCard({ property }: Props) {
         {property?.propertyStatus}
       </Text>
       <Image
-        className="rounded-lg w-full h-[400px] object-cover"
+        className="rounded-lg w-full h-[500px] object-cover"
         src={generateImageUrl(property?.images[0]) ?? "/placeholder.jpg"}
         alt=""
         width={300}
@@ -56,6 +59,12 @@ export default function PropertyCard({ property }: Props) {
           INR {property?.price}{" "}
           <span className="text-sm text-gray-400">Onwards</span>
         </Text>
+        <Button onClick={(e) => {
+          e.stopPropagation();
+          e.preventDefault()
+          setProperty(property)
+          setLeadDialog(true)
+        }}>Contact us</Button>
       </Stack>
     </Stack>
   );

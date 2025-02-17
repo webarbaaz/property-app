@@ -80,19 +80,7 @@ export default function Footer() {
             </Stack>
             {/* social media icons and about us */}
             <Stack spacing={"6"}>
-              <Text
-                className="uppercase"
-                weight={"bold"}
-                size={"lg"}
-                color="white"
-              >
-                About Us
-              </Text>
-              <Stack>
-                <Text color="white">
-                At True Value Home, we don’t just sell properties—we build dreams and create lasting value. Let us help you find the right place to call home.
-                </Text>
-              </Stack>
+  
               <Stack>
                 <Text color="white" weight={"bold"}>
                   Follow Us
@@ -100,21 +88,9 @@ export default function Footer() {
                 <HStack>
                   <Link
                     className="text-white h-6 w-6"
-                    href="https://www.facebook.com/valueproperties/"
-                  >
-                    <FaFacebook />
-                  </Link>
-                  <Link
-                    className="text-white h-6 w-6"
-                    href="https://www.instagram.com/valueproperties/"
+                    href="https://www.instagram.com/true_value_home?igsh=MXM2NXdydW94eG14aw=="
                   >
                     <FaInstagram />
-                  </Link>
-                  <Link
-                    className="text-white h-6 w-6"
-                    href="https://www.twitter.com/valueproperties/"
-                  >
-                    <FaTwitter />
                   </Link>
                 </HStack>
               </Stack>

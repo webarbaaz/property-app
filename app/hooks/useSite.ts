@@ -1,4 +1,4 @@
-import { LinkType, SearchTerm } from "@/types";
+import { LinkType, Property, SearchTerm } from "@/types";
 import { create } from "zustand"; // Use named import instead of default import
 
 type Store = {
@@ -6,9 +6,11 @@ type Store = {
   setMergedLinks: (links: LinkType[]) => void;
   searchTerms: SearchTerm;
   setSearchTerms: (searchTerms: SearchTerm) => void;
-  searchDialog: boolean;
-  closeSearchDialog: () => void;
-  setSearchDialog: (value: boolean) => void;
+  leadDialog: boolean;
+  closeLeadDialog: () => void;
+  setLeadDialog: (value: boolean) => void;
+  property: Property | null
+  setProperty: (property: Property) => void
 };
 
 export const useSite = create<Store>((set) => ({
@@ -27,9 +29,12 @@ export const useSite = create<Store>((set) => ({
         ...update, // Apply the update to only the relevant field
       },
     })),
-  searchDialog: false,
-  closeSearchDialog() {
-    set({ searchDialog: false });
+  leadDialog: false,
+  closeLeadDialog() {
+    set({ leadDialog: false });
   },
-  setSearchDialog: (value) => set({ searchDialog: value }),
+  setLeadDialog: (value) => set({ leadDialog: value }),
+  property: null,
+  setProperty:(property) => 
+    set(({ property:property}))
 }));
