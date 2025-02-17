@@ -38,7 +38,7 @@ export default function CustomerReviews() {
             >
               <div className="flex items-center mb-4">
                 <Image
-                  src={ "/placeholder.svg"}
+                  src={ "/assets/person.jpg"}
                   alt={'demo'}
                   width={60}
                   height={60}
