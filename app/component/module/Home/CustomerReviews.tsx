@@ -3,35 +3,6 @@ import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
 import { FaStar } from "react-icons/fa";
 
-const reviews = [
-  {
-    id: 1,
-    name: "Emma Thompson",
-    role: "First-time Homebuyer",
-    image: "/placeholder.svg?height=100&width=100",
-    review:
-      "The team went above and beyond to help me find my dream home. Their expertise and patience made the entire process smooth and enjoyable.",
-    rating: 5,
-  },
-  {
-    id: 2,
-    name: "Michael Chen",
-    role: "Property Investor",
-    image: "/placeholder.svg?height=100&width=100",
-    review:
-      "I've worked with many real estate agencies, but this team stands out. Their market insights and personalized service are unmatched.",
-    rating: 5,
-  },
-  {
-    id: 3,
-    name: "Sarah Johnson",
-    role: "Luxury Home Seller",
-    image: "/placeholder.svg?height=100&width=100",
-    review:
-      "The marketing strategy they developed for my property was impressive. It sold faster and at a better price than I expected.",
-    rating: 5,
-  },
-];
 type Review = {
   author: string;
   rating: number;

@@ -13,7 +13,7 @@ import { FaClock, FaThumbsUp } from "react-icons/fa6";
 import CustomerReviews from "./component/module/Home/CustomerReviews";
 import Brands from "./component/module/Home/Brands";
 import PropertyList from "./component/PropertyList";
-import { getCategories, getReviews } from "@/lib/sanity/controller/controller.property";
+import { getCategories } from "@/lib/sanity/controller/controller.property";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 

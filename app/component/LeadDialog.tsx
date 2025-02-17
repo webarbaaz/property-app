@@ -2,7 +2,6 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage, FormikValues } from 'formik';
 import * as Yup from 'yup';
-import { Property } from "@/types";
 import { client } from "@/lib/sanity/client";
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import Button from "./ui/Button";
@@ -21,7 +20,6 @@ export default function LeadDialog(
   // Handle form submission
   const handleSubmit = async (values: FormikValues) => {
     const { name, email, phone } = values;
-    client.create
     try {
       const newLead = await client.create({
         _type: 'lead', // The type of document you want to create (ensure it's defined in Sanity schema)
@@ -47,7 +45,7 @@ export default function LeadDialog(
     }}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Contact us</DialogTitle>
+          <DialogTitle>Send your details</DialogTitle>
         </DialogHeader>
         <div>
        <div>

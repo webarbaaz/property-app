@@ -5,11 +5,9 @@ import { Grid } from "../ui/Grid";
 import Stack from "../ui/Stack";
 import Text from "../ui/Text";
 import {
-  FaFacebook,
   FaHome,
   FaInstagram,
   FaMailBulk,
-  FaTwitter,
 } from "react-icons/fa";
 import HStack from "../ui/HStack";
 import Link from "next/link";
@@ -40,8 +38,9 @@ export default function Footer() {
                   </Text>
                 </HStack>
                 <Text color="white">
-                Sales Experience Gallery, L&T Realty, Mori Rd, near St. Michael's Church, Mahim, Mumbai, Maharashtra 400016
-                </Text>
+  Sales Experience Gallery, L&amp;T Realty, Mori Rd, near St. Michael&apos;s Church, Mahim, Mumbai, Maharashtra 400016
+</Text>
+
               </Stack>
               <Stack>
                 <HStack>
@@ -57,7 +56,7 @@ export default function Footer() {
                     Phone:
                   </Text>
                 </HStack>
-                <Link href={'tel:7030187000'} className="text-white">7030187000</Link>
+                <Link href={'tel:917030187000'} className="text-white">+917030187000</Link>
               </Stack>
             </Stack>
             {/* quick links  */}

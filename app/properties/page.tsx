@@ -5,7 +5,6 @@ import Stack from "@/app/component/ui/Stack";
 import Text from "@/app/component/ui/Text";
 import PropertyList from "../component/PropertyList";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
 export default function PropertiesPage() {
 
