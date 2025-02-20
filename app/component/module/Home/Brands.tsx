@@ -12,11 +12,13 @@ export default function Brands() {
     loop: true,
   });
   const images = [
-    "https://images.unsplash.com/photo-1518893494013-481c1d8ed3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJyYW5kfGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1518893494013-481c1d8ed3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJyYW5kfGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1518893494013-481c1d8ed3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJyYW5kfGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1518893494013-481c1d8ed3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJyYW5kfGVufDB8fDB8fHww",
-    "https://images.unsplash.com/photo-1518893494013-481c1d8ed3fd?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGJyYW5kfGVufDB8fDB8fHww",
+    "/assets/brands/godrej.jpg",
+    "/assets/brands/Hiranandani.jpg",
+    "/assets/brands/lnt.jpg",
+    "/assets/brands/lodha.png",
+    "/assets/brands/mahindra.png",
+    "/assets/brands/primal.png",
+    "/assets/brands/WadhawaGroup.jpg",
   ];
   return (
     <Stack spacing={"12"}>
@@ -31,10 +33,10 @@ export default function Brands() {
           <div className="embla__container">
             {images.map((src, index) => (
               <div
-                className="embla__slide sm:basis-1/2 lg:basis-1/4"
+                className="embla__slide sm:basis-1/2 lg:basis-1/4 items-center"
                 key={index}
               >
-                <Image src={src} className="" alt="" width={150} height={150} />
+                <Image src={src} alt="brands" width={250} height={250} />
               </div>
             ))}
           </div>

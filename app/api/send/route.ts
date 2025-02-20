@@ -9,13 +9,13 @@ export async function POST(request: Request) {
     const { name, email, phone, slug } = await request.json();
     const { data, error } = await resend.emails.send({
       from: "True value property <onboarding@resend.dev>",
-      to: ["dev.arbaaz@gmail.com"],
+      to: ["raziq.khan@truevaluehome.in"],
       subject: "Property Lead",
       react: await EmailTemplate({
         name, // Send form data (name)
         email, // Send form data (email)
         phone, // Send form data (phone)
-        slug
+        slug,
       }),
     });
 
