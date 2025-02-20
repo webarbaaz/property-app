@@ -16,6 +16,7 @@ import PropertyList from "./component/PropertyList";
 import { getCategories } from "@/lib/sanity/controller/controller.property";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
+import { useSite } from "./hooks/useSite";
 
 type Category = {
   _id: string;
@@ -23,9 +24,8 @@ type Category = {
   slug: string;
 };
 
-
-
 export default function Home() {
+  const { setLeadDialog } = useSite();
   const [categories, setCategories] = useState<Category[]>([]);
   const fetchCategories = useCallback(async () => {
     const catD = await getCategories();
@@ -33,7 +33,6 @@ export default function Home() {
       setCategories(catD);
     }
   }, []);
-
 
   useEffect(() => {
     fetchCategories();
@@ -83,7 +82,8 @@ export default function Home() {
               {features.map((feature, index) => (
                 <div
                   key={index}
-                  className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20">
+                  className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20"
+                >
                   <div className="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-4">
                     {feature.icon}
                   </div>
@@ -99,16 +99,22 @@ export default function Home() {
         <HStack
           className="p-10 bg-gray-700"
           alignItems={"center"}
-          justify={"between"}>
+          justify={"between"}
+        >
           <Text
             size={"2xl"}
             weight={"bold"}
             color="white"
-            className="capitalize">
+            className="capitalize"
+          >
             For more details
           </Text>
-          <Button className="shadow-lg" color="transparent">
-            <Link href={'/contact-us'}>Contact Us</Link>
+          <Button
+            className="shadow-lg"
+            color="transparent"
+            onClick={() => setLeadDialog(true)}
+          >
+            Contact Us
           </Button>
         </HStack>
         <CustomerReviews />

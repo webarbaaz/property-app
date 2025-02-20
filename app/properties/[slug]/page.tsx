@@ -15,9 +15,10 @@ import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { useEffect, useState } from "react";
 import Loader from "@/app/component/Loader";
 import { PortableText } from "@portabletext/react";
-import { MapPin } from "lucide-react";
+import { MapPin, PhoneCall } from "lucide-react";
 import { EditorFormatter } from "@/app/component/EditorFormatter";
-
+import Button from "@/app/component/ui/Button";
+import { useSite } from "@/app/hooks/useSite";
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
   return await client.fetch(propertyQuery, { slug });
@@ -34,6 +35,7 @@ export default function PropertyPage() {
 
   const [property, setProperty] = useState<Property | null>(null);
   const [loading, setLoading] = useState(true);
+  const { setLeadDialog } = useSite();
 
   useEffect(() => {
     if (!slug) return; // Prevents fetching if slug is undefined
@@ -59,6 +61,14 @@ export default function PropertyPage() {
   return (
     <MainLayout>
       <Stack className="pb-10">
+        <Button
+          variant={"solid"}
+          className="flex hover:bg-green-600 bg-green-500 items-center gap-2 text-white rounded-full fixed bottom-8 right-8"
+          onClick={() => setLeadDialog(true)}
+        >
+          <Text color="white">Enquiry</Text>
+          <PhoneCall />
+        </Button>
         <div className="p-6">
           <Container>
             <Stack>
@@ -80,11 +90,6 @@ export default function PropertyPage() {
           {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-12"> */}
           <div className="">
             <Stack className="" spacing="8">
-              {/* <HStack spacing="10">
-                <Text>Published on: 16-05-2020</Text>
-                <Text>{property.possessionDate}</Text>
-                <Text>{property.carpetArea} sqft</Text>
-              </HStack> */}
               {property.images.map((image, index) => {
                 return (
                   <Image
@@ -129,49 +134,49 @@ export default function PropertyPage() {
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Total Towers</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property.totalTowers}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Total Floors</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property.totalFloors}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Carpet Area</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property?.carpetArea}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Price</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property.price}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Configuration</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property?.size.join(", ")}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Possession Date</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property.possessionDate}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">ReRa ID</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property.reRaId}
                         </td>
                       </tr>
                       <tr>
                         <td className="px-4 py-2 border">Launch Date</td>
-                        <td className="px-4 py-2 border font-semibold font-semibold font-semibold font-semibold">
+                        <td className="px-4 py-2 border font-semibold">
                           {property.launchDate}
                         </td>
                       </tr>

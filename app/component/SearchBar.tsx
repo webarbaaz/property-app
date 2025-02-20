@@ -75,18 +75,19 @@ export default function SearchBar() {
   }, [fetchPT]);
 
   // Disable button if no search terms
-  const isSearchDisabled = Object.values(searchTerms).every((val) => !val);
   return (
     <Grid
       cols={"max5"}
-      className="w-full max-w-4xl lg:bg-white lg:py-6 lg:px-8">
+      className="w-full max-w-4xl lg:bg-white lg:py-6 lg:px-8"
+    >
       <Stack>
         {/* <Text weight={"semibold"}>Type</Text> */}
         <select
           name="type"
           value={searchTerms.propertyType || ""}
           onChange={(e) => setSearchTerms({ propertyType: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           {projectTypes?.map((item, idx) => (
             <option key={idx} value={item.title}>
@@ -101,7 +102,8 @@ export default function SearchBar() {
           name="status"
           value={searchTerms.propertyStatus || ""}
           onChange={(e) => setSearchTerms({ propertyStatus: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           <option value="ready-to-move">Ready To Move</option>
           <option value="under-construction">Under Construction</option>
@@ -113,7 +115,8 @@ export default function SearchBar() {
           name="configuration"
           value={searchTerms.configuration || ""}
           onChange={(e) => setSearchTerms({ configuration: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           {configuration?.map((item, idx) => (
             <option key={idx} value={item.value}>
@@ -128,7 +131,8 @@ export default function SearchBar() {
           name="location"
           value={searchTerms.locality || ""}
           onChange={(e) => setSearchTerms({ locality: e.target.value })}
-          className="border p-2 rounded-lg">
+          className="border p-2 rounded-lg"
+        >
           <option value="">All</option>
           {localites.map((item: Locality, idx: number) => (
             <option key={idx} value={item?.name?.current}>
@@ -137,10 +141,7 @@ export default function SearchBar() {
           ))}
         </select>
       </Stack>
-      <Button
-        onClick={onSearch}
-        className="h-10 mt-auto rounded-full"
-        disabled={isSearchDisabled}>
+      <Button onClick={onSearch} className="h-10 mt-auto rounded-full">
         <Search className="w-6 h-6" />
         Search Now
       </Button>
