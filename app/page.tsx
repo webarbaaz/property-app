@@ -17,6 +17,7 @@ import { getCategories } from "@/lib/sanity/controller/controller.property";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
 import { useSite } from "./hooks/useSite";
+import { motion } from "framer-motion";
 
 type Category = {
   _id: string;
@@ -44,23 +45,54 @@ export default function Home() {
         <Carousel />
         <Container>
           {categories?.map((category, index) => (
-            <Stack spacing={"6"} key={index}>
-              <HStack justify={"between"} className="w-full">
-                <Text size={"2xl"} weight={"bold"} className="capitalize">
-                  {category.name}
-                </Text>
-                <Link href={`/properties?category=${category.slug}`}>
-                  <Button variant={"outline"} color="transparent">
-                    View All
-                  </Button>
-                </Link>
-              </HStack>
-              <PropertyList
-                filters={{ category: category.slug }}
-                isPaginated={false}
-                limit={4}
-              />
-            </Stack>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 50 }} // Start with opacity 0 and move up
+              whileInView={{ opacity: 1, y: 0 }} // Animate to opacity 1 and position 0
+              transition={{ duration: 1, delay: index * 0.1 }} // Add delay between categories
+              viewport={{ once: true }} // Only animate once when the category enters the view
+            >
+              <Stack spacing={"6"}>
+                <HStack justify={"between"} className="w-full">
+                  <motion.div
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Text size={"2xl"} weight={"bold"} className="capitalize">
+                      {category.name}
+                    </Text>
+                  </motion.div>
+
+                  <Link href={`/properties?category=${category.slug}`}>
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      transition={{ duration: 1 }}
+                      viewport={{ once: true }}
+                    >
+                      <Button variant={"outline"} color="transparent">
+                        View All
+                      </Button>
+                    </motion.div>
+                  </Link>
+                </HStack>
+
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
+                  transition={{ duration: 1 }}
+                  viewport={{ once: true }}
+                >
+                  <PropertyList
+                    filters={{ category: category.slug }}
+                    isPaginated={false}
+                    limit={4}
+                  />
+                </motion.div>
+              </Stack>
+            </motion.div>
           ))}
         </Container>
         <section className="relative py-16 md:py-24 overflow-hidden">
@@ -75,27 +107,42 @@ export default function Home() {
             <div className="absolute inset-0 bg-black opacity-60"></div>
           </div>
           <div className="relative z-10 container mx-auto px-4">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 text-white">
+            <motion.h2
+              className="text-3xl md:text-4xl font-bold text-center mb-8 text-white"
+              initial={{ opacity: 0, y: -50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1 }}
+              viewport={{ once: true }} // Ensures animation triggers only once when it enters the view
+            >
               Why Choose Us
-            </h2>
+            </motion.h2>
             <Grid cols={"max4"} gap={"lg"}>
               {features.map((feature, index) => (
-                <div
+                <motion.div
                   key={index}
                   className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg p-6 rounded-lg shadow-lg transition-transform duration-300 hover:scale-105 border border-white border-opacity-20"
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1, delay: index * 0.1 }}
+                  viewport={{ once: true }} // Ensures animation triggers only once when it enters the view
                 >
-                  <div className="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-4">
+                  <motion.div
+                    className="flex items-center justify-center w-12 h-12 bg-primary/20 rounded-full mb-4"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 1 }}
+                  >
                     {feature.icon}
-                  </div>
+                  </motion.div>
                   <h3 className="text-xl font-semibold mb-2 text-white">
                     {feature.title}
                   </h3>
                   <p className="text-gray-200">{feature.description}</p>
-                </div>
+                </motion.div>
               ))}
             </Grid>
           </div>
         </section>
+
         <HStack
           className="p-10 bg-gray-700"
           alignItems={"center"}
