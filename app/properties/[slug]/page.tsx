@@ -26,6 +26,7 @@ async function getProperty(slug: string): Promise<Property | null> {
 
 // Page Component
 export default function PropertyPage() {
+  const { setActiveSlug } = useSite();
   const params = useParams();
   const slug = params?.slug
     ? Array.isArray(params.slug)
@@ -45,6 +46,7 @@ export default function PropertyPage() {
         const data = await getProperty(slug);
         if (data) {
           setProperty(data);
+          setActiveSlug(slug);
         }
       } catch (error) {
         console.error("Failed to fetch property:", error);
@@ -54,7 +56,7 @@ export default function PropertyPage() {
     };
 
     fetchSingleProperty();
-  }, [slug]); // Only re-run when slug changes
+  }, [slug, setActiveSlug]); // Only re-run when slug changes
 
   if (loading) return <Loader />;
   if (!property) return notFound();

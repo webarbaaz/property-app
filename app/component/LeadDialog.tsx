@@ -14,7 +14,8 @@ import Button from "./ui/Button";
 import { useSite } from "../hooks/useSite";
 import { toast } from "react-toastify";
 export default function LeadDialog() {
-  const { leadDialog, setLeadDialog, property, closeLeadDialog } = useSite();
+  const { leadDialog, setLeadDialog, property, closeLeadDialog, activeSlug } =
+    useSite();
   // Define the validation schema with Yup
   const validationSchema = Yup.object({
     name: Yup.string().required("Name is required"),
@@ -45,7 +46,9 @@ export default function LeadDialog() {
             name,
             email,
             phone,
-            slug: "https://www.truevaluehome.in/properties/" + property?.slug,
+            slug:
+              "https://www.truevaluehome.in/properties/" +
+              (property?.slug ?? activeSlug),
           });
 
           if (res.status === 200) {

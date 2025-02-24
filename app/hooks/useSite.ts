@@ -9,8 +9,10 @@ type Store = {
   leadDialog: boolean;
   closeLeadDialog: () => void;
   setLeadDialog: (value: boolean) => void;
-  property: Property | null
-  setProperty: (property: Property) => void
+  property: Property | null;
+  setProperty: (property: Property) => void;
+  activeSlug: string | null;
+  setActiveSlug: (slug: string) => void;
 };
 
 export const useSite = create<Store>((set) => ({
@@ -21,6 +23,10 @@ export const useSite = create<Store>((set) => ({
     propertyType: "",
     locality: "",
     configuration: "",
+  },
+  activeSlug: null,
+  setActiveSlug(slug) {
+    set({ activeSlug: slug });
   },
   setSearchTerms: (update) =>
     set((state) => ({
@@ -35,6 +41,5 @@ export const useSite = create<Store>((set) => ({
   },
   setLeadDialog: (value) => set({ leadDialog: value }),
   property: null,
-  setProperty:(property) => 
-    set(({ property:property}))
+  setProperty: (property) => set({ property: property }),
 }));
