@@ -55,7 +55,7 @@ export default function Carousel() {
 
 {/* Search Bar with fade-in and slide-up animation */}
 <div
-          className={`w-full max-w-4xl bg-white p-4 sm:p-0 rounded-md lg:rounded-full overflow-hidden shadow-lg flex mb-8 opacity-0 transition-opacity transform duration-1000 ease-in-out ${
+          className={`w-full max-w-4xl bg-white p-4 lg:p-0 rounded-md lg:rounded-full overflow-hidden shadow-lg flex mb-8 opacity-0 transition-opacity transform duration-1000 ease-in-out ${
             isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
           style={{ transitionDelay: "300ms" }} // Slight delay

@@ -27,7 +27,7 @@ export async function getProperties(
     filterConditions.push(`propertyStatus == "${propertyStatus}"`);
   }
   if (locality) {
-    filterConditions.push(`locality->slug.current == "${locality}"`);
+    filterConditions.push(`locality->name.current == "${locality}"`);
   }
   if (category) {
     filterConditions.push(`category->slug.current == "${category}"`);
