@@ -171,7 +171,7 @@ export default function PropertyPage() {
                         </td>
                       </tr>
                       <tr>
-                        <td className="px-4 py-2 border">ReRa ID</td>
+                        <td className="px-4 py-2 border">Rera ID</td>
                         <td className="px-4 py-2 border font-semibold">
                           {property.reRaId}
                         </td>
