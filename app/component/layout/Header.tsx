@@ -1,84 +1,61 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Container from "../ui/Container";
-import HStack from "../ui/HStack";
-import { quickLinks } from "@/utils/values";
 import Link from "next/link";
-import { client } from "@/lib/sanity/client";
-import { pageQueryList } from "@/lib/sanity/qureies/pageQuery";
-import { useSite } from "@/app/hooks/useSite";
 import Button from "../ui/Button";
-import { FaAlignLeft } from "react-icons/fa";
 import { IoClose } from "react-icons/io5";
 import Image from "next/image";
-
-interface Page {
-  name: string;
-  slug: { current: string };
-}
+import { quickLinks } from "@/utils/values";
+import { Phone } from "lucide-react";
 
 export default function Header() {
-  const { mergedLinks, setMergedLinks } = useSite();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const fetchStaticPages = async () => {
-      try {
-        const pages: Page[] = await client.fetch(pageQueryList);
-        if (pages.length > 0) {
-          const links = [
-            ...quickLinks,
-            ...pages.map((page) => ({
-              title: page.name,
-              url: `/${page.slug.current}`,
-            })),
-          ];
-          setMergedLinks(links);
-        }
-      } catch (error) {
-        console.error("Failed to fetch static pages:", error);
-      }
-    };
-
-    fetchStaticPages();
-  }, []);
-
   return (
-    <div className="relative z-50">
+    <div className="relative">
       {/* Navbar */}
-      <div className="bg-white w-full z-50 bg-opacity-70 backdrop-filter backdrop-blur-lg py-2">
+      <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <Container className="p-2">
-          <HStack justify={"between"}>
-            <Link href={"/"}>
-              <Image
-                alt="logo"
-                src={"/assets/logo.png"}
-                width={90}
-                height={40}
-                className="w-24"
-              />
-            </Link>
-            <HStack className="hidden lg:block">
-              {mergedLinks.map((link, idx) => (
-                <Link
-                  href={link.url}
-                  key={idx}
-                  className="p-2 font-semibold text-lg">
-                  {link.title}
-                </Link>
-              ))}
-            </HStack>
-
-            {/* Mobile Menu Button */}
-            <Button
-              className="lg:hidden"
-              onClick={() => setIsSidebarOpen(true)}>
-              <FaAlignLeft />
-            </Button>
-          </HStack>
+          <div className="container flex h-16 items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Link href="/" className="flex items-center gap-2">
+                <Image
+                  src="/logo.png"
+                  alt="True Value Homes"
+                  width={40}
+                  height={40}
+                  className="h-10 w-auto"
+                />
+                <span className="hidden font-semibold text-xl sm:inline-block">
+                  True Value Homes
+                </span>
+              </Link>
+            </div>
+            <nav className="hidden md:flex items-center gap-6">
+              {quickLinks.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={idx}
+                    href={item.link}
+                    className="font-medium text-muted-foreground text-sm transition-colors hover:text-primary flex gap-1">
+                    <Icon className="w-4 h-4" />
+                    {item.title}
+                  </Link>
+                );
+              })}
+            </nav>
+            <div className="flex items-center gap-4">
+              <Button className="flex gap-2">
+                <Phone className="h-4 w-4" />
+                <span className="hidden lg:block">Contact Us</span>
+              </Button>
+              {/* <Button>Contact Us</Button> */}
+            </div>
+          </div>
         </Container>
-      </div>
+      </header>
 
       {/* Sidebar */}
       <div
@@ -95,13 +72,13 @@ export default function Header() {
 
         {/* Sidebar Links */}
         <nav className="flex flex-col p-4">
-          {mergedLinks.map((link, idx) => (
+          {quickLinks.map((item, idx) => (
             <Link
               key={idx}
-              href={link.url}
-              className="text-black text-lg py-2 font-semibold"
+              href={item.link}
+              className="text-black py-2 font-semibold capitalize"
               onClick={() => setIsSidebarOpen(false)}>
-              {link.title}
+              {item.title}
             </Link>
           ))}
         </nav>

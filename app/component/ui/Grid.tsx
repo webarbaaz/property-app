@@ -13,7 +13,7 @@ const gridVariants = cva("grid", {
       md: "md:grid-cols-2",
       lg: "lg:grid-cols-3",
       xl: "xl:grid-cols-4",
-      max4: "md:grid-cols-3 lg:grid-cols-4",
+      max4: "md:grid-cols-2 lg:grid-cols-4",
       max5: "md:grid-cols-3 lg:grid-cols-5",
     },
     gap: {

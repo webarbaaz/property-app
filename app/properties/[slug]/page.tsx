@@ -7,11 +7,9 @@ import Stack from "@/app/component/ui/Stack";
 import Text from "@/app/component/ui/Text";
 import { propertyQuery } from "@/lib/sanity/qureies/property";
 import { client } from "@/lib/sanity/client";
-import Image from "next/image";
 // import { FaCheckCircle } from "react-icons/fa";
 import { notFound, useParams } from "next/navigation";
 import { Property } from "@/types";
-import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { useEffect, useState } from "react";
 import Loader from "@/app/component/Loader";
 import { PortableText } from "@portabletext/react";
@@ -19,6 +17,8 @@ import { MapPin, PhoneCall } from "lucide-react";
 import { EditorFormatter } from "@/app/component/EditorFormatter";
 import Button from "@/app/component/ui/Button";
 import { useSite } from "@/app/hooks/useSite";
+import BentoGrid from "@/app/component/module/propertyPage/BentoGrid";
+import PropertyList from "@/app/component/PropertyList";
 // Fetch property data (Runs on the server)
 async function getProperty(slug: string): Promise<Property | null> {
   return await client.fetch(propertyQuery, { slug });
@@ -89,21 +89,9 @@ export default function PropertyPage() {
         </div>
 
         <Container>
-          {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-12"> */}
-          <div className="">
+          <Stack>
             <Stack className="" spacing="8">
-              {property.images.map((image, index) => {
-                return (
-                  <Image
-                    key={index}
-                    src={generateImageUrl(image) ?? "/placeholder.jpg"}
-                    width={1920}
-                    height={1080}
-                    className="rounded-lg max-h-[800px] object-cover"
-                    alt={property.name}
-                  />
-                );
-              })}
+              <BentoGrid images={property.images} />
               <div className="grid grid-cols-1 gap-6 md:grid-cols-5">
                 <Stack spacing="6" className="col-span-2">
                   <table className="w-full border-collapse border-gray-300 rounded-lg overflow-hidden">
@@ -204,11 +192,16 @@ export default function PropertyPage() {
                   </Stack>
                 </Stack>
               </div>
+              <PropertyList
+                filters={{
+                  category: property.category
+                }}
+              />
             </Stack>
 
             {/* Sidebar Placeholder */}
             {/* <Stack className="col-span-4"></Stack> */}
-          </div>
+          </Stack>
         </Container>
       </Stack>
     </MainLayout>

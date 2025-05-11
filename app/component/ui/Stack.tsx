@@ -34,8 +34,7 @@ const Stack = React.forwardRef<HTMLDivElement, StackProps>(
       <Comp
         className={cn(stackVariants({ spacing, className }))}
         ref={ref}
-        {...props}
-      >
+        {...props}>
         {children}
       </Comp>
     );

@@ -13,8 +13,14 @@ export async function getProperties(
   page: number = 1,
   limit: number = 10
 ) {
-  const { propertyType, propertyStatus, locality, category, flags, configuration } =
-    filters;
+  const {
+    propertyType,
+    propertyStatus,
+    locality,
+    category,
+    flags,
+    configuration,
+  } = filters;
   const start = (page - 1) * limit;
   const end = start + limit;
 
@@ -114,12 +120,12 @@ export async function getCategories() {
   return await client.fetch(query);
 }
 
-
-export async function getReviews () {
+export async function getReviews() {
   const query = `*[_type == "review"] {
+  _id,
   author,
   rating,
   reviewText,
-  }`
-  return await client.fetch(query)
+  }`;
+  return await client.fetch(query);
 }

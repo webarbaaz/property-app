@@ -4,6 +4,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Autoplay from "embla-carousel-autoplay";
+import Container from "../../ui/Container";
 
 export default function Brands() {
   const [emblaRef] = useEmblaCarousel(
@@ -36,14 +37,13 @@ export default function Brands() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4">
+    <section className="py-20">
+      <Container>
         <motion.div
           className="text-center mb-12"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
+          transition={{ duration: 0.6 }}>
           <h2 className="text-4xl font-bold text-gray-800 mb-4">
             Brands We Promote
           </h2>
@@ -61,8 +61,7 @@ export default function Brands() {
                   key={index}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                >
+                  transition={{ duration: 0.5, delay: index * 0.1 }}>
                   <div className="bg-white p-4 rounded-lg shadow-md transition-all duration-300 hover:shadow-xl hover:scale-105 h-full flex items-center justify-center">
                     <Image
                       src={src || "/placeholder.svg"}
@@ -77,7 +76,7 @@ export default function Brands() {
             </div>
           </div>
         )}
-      </div>
+      </Container>
     </section>
   );
 }

@@ -68,9 +68,8 @@ export default function PropertyList({
         hasMore={!isPaginated && hasNextPage}
         loader={
           isFetchingNextPage ? <Text>Loading more properties...</Text> : null
-        }
-      >
-        <Grid cols={3} gap="sm">
+        }>
+        <Grid cols={3} gap="md">
           {properties.map((property) => (
             <Link key={property.slug} href={`/properties/${property.slug}`}>
               <PropertyCard property={property} />

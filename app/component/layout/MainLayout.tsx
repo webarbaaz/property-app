@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import BreadCrumb from "../Breadcrum";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import LeadDialog from "../LeadDialog";
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer } from "react-toastify";
 
 type Props = {
   children: ReactNode;
@@ -14,15 +14,13 @@ type Props = {
 export default function MainLayout({ children }: Props) {
   const [queryClient] = useState(() => new QueryClient());
   return (
-    <>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
       <ToastContainer />
-        <LeadDialog />
-        <Header />
-        <BreadCrumb />
-        {children}
-        <Footer />
-      </QueryClientProvider>
-    </>
+      <LeadDialog />
+      <Header />
+      <BreadCrumb />
+      {children}
+      <Footer />
+    </QueryClientProvider>
   );
 }

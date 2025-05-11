@@ -1,12 +1,13 @@
 "use client";
 
 import { getReviews } from "@/lib/sanity/controller/controller.property";
-import Image from "next/image";
 import { useCallback, useEffect, useState } from "react";
-import { FaStar, FaQuoteLeft } from "react-icons/fa";
-import { motion } from "framer-motion";
+import Container from "../../ui/Container";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Star } from "lucide-react";
 
 type Review = {
+  _id: string;
   author: string;
   rating: number;
   reviewText: string;
@@ -29,64 +30,57 @@ export default function CustomerReviews() {
   if (reviews.length < 1) return null;
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-50 to-white">
-      <div className="container mx-auto px-4">
-        <motion.h2
-          className="text-4xl md:text-5xl font-bold text-center mb-16 text-gray-800"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          whileInView={{ opacity: 1, y: 0 }}
-        >
-          What Our Clients Say
-        </motion.h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {reviews.map((review, idx) => (
-            <motion.div
-              key={idx}
-              className="bg-white p-8 rounded-xl shadow-xl transition-all duration-300 hover:shadow-2xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.1 }}
-              whileInView={{ opacity: 1, y: 0 }}
-            >
-              <div className="flex items-center mb-6">
-                <div className="relative">
-                  <Image
-                    src={"/assets/person.jpg"}
-                    alt={review.author}
-                    width={70}
-                    height={70}
-                    className="rounded-full border-4 border-blue-100"
-                  />
-                  <div className="absolute -bottom-2 -right-2 bg-blue-500 rounded-full p-2">
-                    <FaQuoteLeft className="text-white text-sm" />
-                  </div>
+    <section className="py-16 bg-gray-50">
+      <Container>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-bold mb-4">What Our Clients Say</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Don&apos;t just take our word for it. Here&apos;s what our satisfied
+            clients have to say about their experience with True Value Homes.
+          </p>
+        </div>
+
+        <Tabs
+          defaultValue={reviews.map((review) => review)[0]._id}
+          className="max-w-3xl mx-auto">
+          <TabsList className="grid w-full grid-cols-3">
+            {reviews.map((review) => (
+              <TabsTrigger key={review._id} value={review._id}>
+                {review.author}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {reviews.map((testimonial) => (
+            <TabsContent
+              key={testimonial._id}
+              value={testimonial._id}
+              className="mt-6">
+              <div className="bg-white rounded-xl p-8 shadow-sm">
+                <div className="flex gap-1 mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className="h-5 w-5 fill-primary text-primary"
+                    />
+                  ))}
                 </div>
-                <div className="ml-4">
-                  <h3 className="font-bold text-xl text-gray-800">
-                    {review.author}
-                  </h3>
-                  <div className="flex mt-1">
-                    {[...Array(5)].map((_, i) => (
-                      <FaStar
-                        key={i}
-                        className={`h-5 w-5 ${
-                          i < review.rating
-                            ? "text-yellow-400"
-                            : "text-gray-300"
-                        } fill-current`}
-                      />
-                    ))}
+                <blockquote className="text-lg italic mb-6">
+                  &quot;{testimonial.reviewText}&quot;
+                </blockquote>
+                <div className="flex items-center">
+                  <div className="h-12 w-12 rounded-full bg-gray-200 mr-4"></div>
+                  <div>
+                    <div className="font-semibold">{testimonial.author}</div>
+                    <div className="text-sm text-muted-foreground">
+                      {/* {testimonial.role} */}
+                    </div>
                   </div>
                 </div>
               </div>
-              <p className="text-gray-600 italic mb-6">{review.reviewText}</p>
-              <div className="w-16 h-1 bg-blue-500 rounded-full mx-auto"></div>
-            </motion.div>
+            </TabsContent>
           ))}
-        </div>
-      </div>
+        </Tabs>
+      </Container>
     </section>
   );
 }

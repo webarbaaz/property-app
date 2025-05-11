@@ -7,65 +7,66 @@ import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
 import { Grid } from "./ui/Grid";
 import Button from "./ui/Button";
 import { useSite } from "../hooks/useSite";
+import { MapPin } from "lucide-react";
 
 type Props = {
   property: Property;
 };
 
 export default function PropertyCard({ property }: Props) {
-  const {setProperty, setLeadDialog} = useSite()
+  const { setProperty, setLeadDialog } = useSite();
   return (
-    <Stack
-      spacing={"0"}
-      className="bg-white rounded-lg shadow-md capitalize relative my-4 mx-2">
-      <Text
-        className="uppercase absolute left-2 top-2 bg-gray-700 px-3 py-1 shadow-lg rounded-full"
-        color="white"
-        size={"sm"}>
-        {property?.propertyStatus}
-      </Text>
-      <Image
-        className="rounded-lg w-full h-[500px] object-cover"
-        src={generateImageUrl(property?.images[0]) ?? "/placeholder.jpg"}
-        alt=""
-        width={300}
-        height={200}
-      />
-      <Stack
-        spacing={"1"}
-        className="p-3 rounded-lg absolute left-2 right-2 bg-white bottom-2">
-        <Text weight={"semibold"} className="text-lg">
-          {property?.name}
-        </Text>
-        <Grid cols={2} gap={"md"}>
-          <Stack spacing={"1"} className="border-r-2">
-            <Text className="text-gray-500">Carpet Area</Text>
-            <Text className="font-semibold">{property?.carpetArea}</Text>
-          </Stack>
-          <Stack spacing={"1"}>
-            <Text className="text-gray-500">Configuration</Text>
-            <Text className="font-semibold">{property?.size.join(", ")}</Text>
-          </Stack>
-          <Stack spacing={"1"} className="border-r-2">
-            <Text className="text-gray-500">RERA ID</Text>
-            <Text className="font-semibold">{property?.reRaId}</Text>
-          </Stack>
-          <Stack spacing={"1"}>
-            <Text className="text-gray-500">Possession Date</Text>
-            <Text className="font-semibold">{property?.possessionDate}</Text>
-          </Stack>
-        </Grid>
-        <Text weight={"semibold"} className="text-lg">
-          INR {property?.price}{" "}
-          <span className="text-sm text-gray-400">Onwards</span>
-        </Text>
-        <Button onClick={(e) => {
-          e.stopPropagation();
-          e.preventDefault()
-          setProperty(property)
-          setLeadDialog(true)
-        }}>Contact us</Button>
-      </Stack>
-    </Stack>
+    <div className="py-4 px-2">
+      <div className="group overflow-hidden rounded-xl bg-white shadow-md transition-all hover:shadow-lg">
+        <div className="aspect-video relative overflow-hidden">
+          <Image
+            src={
+              generateImageUrl(property.images[0]) ??
+              `/assets/banner/banner-1.jpg`
+            }
+            alt="Property"
+            width={500}
+            height={300}
+            className="object-cover transition-transform group-hover:scale-105"
+          />
+          <div className="absolute top-3 left-3 rounded-full bg-white/90 px-3 py-1 text-sm font-medium">
+            {property.propertyStatus}
+          </div>
+          <div className="absolute top-3 right-3 rounded-full bg-primary/90 px-3 py-1 text-sm font-medium text-white">
+            ₹{property.price}
+          </div>
+        </div>
+        <div className="p-5">
+          <h3 className="text-xl font-semibold">{property.name}</h3>
+          <div className="mt-2 flex items-center text-muted-foreground capitalize">
+            <MapPin className="mr-1 h-4 w-4" />
+            <span className="text-sm">
+              {property.locality.name.current}
+              {", "}
+              {property.locality.city.name.current}
+            </span>
+          </div>
+          <div className="mt-4 flex items-center justify-between border-t pt-4">
+            <div className="flex items-center gap-4">
+              <div className="flex flex-col">
+                <span className="text-xs text-muted-foreground">Bedrooms</span>
+                <span className="font-medium">3</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs text-muted-foreground">Bathrooms</span>
+                <span className="font-medium">2</span>
+              </div>
+              <div className="flex flex-col">
+                <span className="text-xs text-muted-foreground">Area</span>
+                <span className="font-medium">1,200 sq ft</span>
+              </div>
+            </div>
+            <Button variant="ghost" size="sm">
+              Details
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

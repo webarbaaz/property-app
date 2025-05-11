@@ -58,3 +58,8 @@ export interface SearchTerm {
   locality?: string;
   configuration?: string;
 }
+
+
+export interface BentoGalleryProps {
+  images: string[];
+}

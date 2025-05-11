@@ -9,34 +9,23 @@ const buttonVariants = cva(
     variants: {
       size: {
         sm: "px-3 py-1.5 text-sm",
-        md: "px-4 py-2 text-base",
+        md: "px-4 py-2 text-sm md:text-base",
         lg: "px-5 py-2.5 text-lg",
       },
       variant: {
-        solid: "bg-gray-700 text-white hover:bg-gray-700 focus:ring-blue-500",
+        primary: "bg-black text-white hover:bg-gray-800",
+        secondary:
+          "bg-white/95 text-gray-800 hover:bg-gray-300 hover:opacity-80 focus:ring-blue-500",
+        link: "text-gray-600 focus:ring-blue-500 hover:underline",
         outline:
-          "border border-blue-600 text-blue-600 hover:bg-blue-100 focus:ring-blue-500",
-        ghost: "text-blue-600 hover:bg-blue-100 focus:ring-blue-500",
-      },
-      color: {
-        primary: "bg-gray-700 text-white hover:bg-gray-700",
-        secondary: "bg-gray-600 text-white hover:bg-gray-700",
-        success: "bg-green-600 text-white hover:bg-green-700",
-        danger: "bg-red-600 text-white hover:bg-red-700",
-        warning: "bg-yellow-600 text-white hover:bg-gray-700",
-        transparent: "",
-      },
-      fullWidth: {
-        true: "w-full",
-      },
-      disabled: {
-        true: "opacity-50 cursor-not-allowed",
+          "border border-gray-300 text-gray-800 hover:bg-gray-100 focus:ring-blue-500",
+        ghost:
+          "bg-transparent text-gray-800 hover:bg-gray-100 focus:ring-blue-500",
       },
     },
     defaultVariants: {
       size: "md",
-      variant: "solid",
-      color: "primary",
+      variant: "primary",
     },
   }
 );
@@ -47,6 +36,7 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   isLoading?: boolean;
   color?:
+    | "custom"
     | "primary"
     | "secondary"
     | "success"
