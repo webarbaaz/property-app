@@ -32,7 +32,10 @@ export interface Property {
   carpetArea: string;
   city: string;
   locality: Locality;
-  category: string;
+  category: {
+    _id: string;
+    name: string;
+  };
   price: string;
   amenities: Amenity[];
   developer: string;
@@ -58,7 +61,6 @@ export interface SearchTerm {
   locality?: string;
   configuration?: string;
 }
-
 
 export interface BentoGalleryProps {
   images: string[];

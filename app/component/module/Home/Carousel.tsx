@@ -6,7 +6,7 @@ import Container from "../../ui/Container";
 import Button from "../../ui/Button";
 import SearchBar from "../../SearchBar";
 import { getCategories } from "@/lib/sanity/controller/controller.property";
-
+import AnimationComponent from "../../AnimationComponent";
 type Category = {
   _id: string;
   name: string;
@@ -37,17 +37,21 @@ export default function Carousel() {
       </div>
       <Container>
         <div className="container relative z-10 py-24 md:py-32 lg:py-40">
-          <div className="max-w-3xl space-y-5">
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
-              Find Your Dream Home
-            </h1>
-            <p className="text-xl text-gray-200 md:text-2xl">
-              Discover the perfect property that fits your lifestyle and
-              aspirations.
-            </p>
-          </div>
+          <AnimationComponent delay={0.5}>
+            <div className="max-w-3xl space-y-5">
+              <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl md:text-6xl">
+                Find Your Dream Home
+              </h1>
+              <p className="text-xl text-gray-200 md:text-2xl">
+                Discover the perfect property that fits your lifestyle and
+                aspirations.
+              </p>
+            </div>
+          </AnimationComponent>
 
-          <SearchBar />
+          <AnimationComponent delay={0.5}>
+            <SearchBar />
+          </AnimationComponent>
 
           <div className="mt-8 flex flex-wrap gap-4">
             {categories.map((item, idx) => (

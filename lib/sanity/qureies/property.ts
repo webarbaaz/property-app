@@ -19,7 +19,10 @@ export const propertyListQuery = `
 						name
 					},
 },
-  category
+  "category" : {
+    _id,
+    name,
+  },
   price,
   developer,
   totalFloor,

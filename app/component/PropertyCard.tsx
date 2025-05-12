@@ -76,7 +76,7 @@ export default function PropertyCard({ property }: Props) {
                 setProperty(property);
                 setLeadDialog(true);
               }}>
-              Details
+              Contact
             </Button>
           </div>
         </div>

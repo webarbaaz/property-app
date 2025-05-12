@@ -12,7 +12,7 @@ import Stack from "../ui/Stack";
 import HStack from "../ui/HStack";
 
 export default function Header() {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="relative">

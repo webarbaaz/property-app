@@ -17,8 +17,7 @@ export default function BentoGrid({ images }: BentoGalleryProps) {
 
   const closeModal = () => setIsOpen(false);
 
-  const nextImage = () =>
-    setCurrentIndex((prev) => (prev + 1) % images.length);
+  const nextImage = () => setCurrentIndex((prev) => (prev + 1) % images.length);
 
   const prevImage = () =>
     setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
@@ -30,8 +29,7 @@ export default function BentoGrid({ images }: BentoGalleryProps) {
         {images[0] && (
           <div
             className="col-span-2 row-span-2 cursor-pointer aspect-square sm:aspect-auto"
-            onClick={() => openModal(0)}
-          >
+            onClick={() => openModal(0)}>
             <Image
               src={generateImageUrl(images[0]) ?? "/placeholder.jpg"}
               alt="Main image"
@@ -52,8 +50,7 @@ export default function BentoGrid({ images }: BentoGalleryProps) {
               onClick={() => openModal(imgIndex)}
               className={`col-span-1 relative group cursor-pointer aspect-[4/3] sm:aspect-auto ${
                 idx === 3 ? "rounded-br-xl" : ""
-              }`}
-            >
+              } hidden md:block`}>
               <Image
                 src={generateImageUrl(img) ?? "/placeholder.jpg"}
                 alt={`Gallery ${imgIndex}`}
@@ -80,8 +77,7 @@ export default function BentoGrid({ images }: BentoGalleryProps) {
             {/* Close button */}
             <button
               onClick={closeModal}
-              className="absolute top-3 right-3 text-white text-3xl z-10"
-            >
+              className="absolute top-3 right-3 text-white text-3xl z-10">
               &times;
             </button>
 
@@ -96,14 +92,12 @@ export default function BentoGrid({ images }: BentoGalleryProps) {
             {/* Prev/Next */}
             <button
               onClick={prevImage}
-              className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-4 py-3 text-2xl rounded-r hover:bg-black/70"
-            >
+              className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-4 py-3 text-2xl rounded-r hover:bg-black/70">
               ‹
             </button>
             <button
               onClick={nextImage}
-              className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-4 py-3 text-2xl rounded-l hover:bg-black/70"
-            >
+              className="absolute right-0 top-1/2 -translate-y-1/2 bg-black/50 text-white px-4 py-3 text-2xl rounded-l hover:bg-black/70">
               ›
             </button>
           </div>

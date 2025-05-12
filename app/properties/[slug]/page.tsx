@@ -193,7 +193,7 @@ export default function PropertyPage() {
               </div>
               <PropertyList
                 filters={{
-                  category: property.category,
+                  category: property.category.name,
                 }}
               />
             </Stack>

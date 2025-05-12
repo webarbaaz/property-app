@@ -23,6 +23,7 @@ import {
   Star,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import AnimationComponent from "./component/AnimationComponent";
 
 type Category = {
   _id: string;
@@ -48,25 +49,27 @@ export default function Home() {
     <MainLayout>
       <Stack spacing={"12"}>
         <Carousel />
-        {categories?.map((category) => (
-          <section key={category._id}>
-            <Container>
-              <div className="flex items-center justify-between mb-10">
-                <h2 className="text-3xl font-semibold capitalize">
-                  {category.name}
-                </h2>
-                <Link href={`/properties?category=${category.slug}`}>
-                  <Button variant="outline">View All Properties</Button>
-                </Link>
-              </div>
-              <PropertyList
-                limit={4}
-                isPaginated={false}
-                filters={{ category: category.slug }}
-              />
-            </Container>
-          </section>
-        ))}
+        <AnimationComponent delay={1}>
+          {categories?.map((category) => (
+            <section key={category._id}>
+              <Container>
+                <div className="flex items-center justify-between mb-10">
+                  <h2 className="text-3xl font-semibold capitalize">
+                    {category.name}
+                  </h2>
+                  <Link href={`/properties?category=${category.slug}`}>
+                    <Button variant="outline">View All Properties</Button>
+                  </Link>
+                </div>
+                <PropertyList
+                  limit={4}
+                  isPaginated={false}
+                  filters={{ category: category.slug }}
+                />
+              </Container>
+            </section>
+          ))}
+        </AnimationComponent>
 
         {/* <Container>
           {categories?.map((category, index) => (
@@ -190,67 +193,69 @@ export default function Home() {
         </HStack> */}
         {/* Services Section */}
         <section className="py-16 bg-white">
-          <Container>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Our Services</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                We offer a comprehensive range of real estate services to meet
-                all your property needs.
-              </p>
-            </div>
+          <AnimationComponent delay={0.5}>
+            <Container>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold mb-4">Our Services</h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  We offer a comprehensive range of real estate services to meet
+                  all your property needs.
+                </p>
+              </div>
 
-            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  title: "Property Sales",
-                  description:
-                    "Find your dream home or sell your property with our expert guidance.",
-                  icon: HomeIcon,
-                },
-                {
-                  title: "Property Management",
-                  description:
-                    "Let us handle the day-to-day operations of your investment properties.",
-                  icon: Building,
-                },
-                {
-                  title: "Investment Advisory",
-                  description:
-                    "Make informed decisions with our expert real estate investment advice.",
-                  icon: Star,
-                },
-                {
-                  title: "Legal Assistance",
-                  description:
-                    "Navigate complex real estate transactions with our legal support.",
-                  icon: CheckCircle,
-                },
-              ].map((service, index) => (
-                <Card
-                  key={index}
-                  className="group hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-6 text-center">
-                    <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                      <service.icon className="h-8 w-8 text-primary" />
-                    </div>
-                    <h3 className="text-xl font-semibold mb-2">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground">
-                      {service.description}
-                    </p>
-                    <Link href={`/privacy-policy`}>
-                      <Button
-                        variant="link"
-                        className="mt-4 gap-1 group-hover:text-primary transition-colors">
-                        Learn more <ArrowRight className="h-4 w-4 ml-1" />
-                      </Button>
-                    </Link>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </Container>
+              <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                {[
+                  {
+                    title: "Property Sales",
+                    description:
+                      "Find your dream home or sell your property with our expert guidance.",
+                    icon: HomeIcon,
+                  },
+                  {
+                    title: "Property Management",
+                    description:
+                      "Let us handle the day-to-day operations of your investment properties.",
+                    icon: Building,
+                  },
+                  {
+                    title: "Investment Advisory",
+                    description:
+                      "Make informed decisions with our expert real estate investment advice.",
+                    icon: Star,
+                  },
+                  {
+                    title: "Legal Assistance",
+                    description:
+                      "Navigate complex real estate transactions with our legal support.",
+                    icon: CheckCircle,
+                  },
+                ].map((service, index) => (
+                  <Card
+                    key={index}
+                    className="group hover:shadow-lg transition-all duration-300">
+                    <CardContent className="p-6 text-center">
+                      <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 group-hover:bg-primary/20 transition-colors">
+                        <service.icon className="h-8 w-8 text-primary" />
+                      </div>
+                      <h3 className="text-xl font-semibold mb-2">
+                        {service.title}
+                      </h3>
+                      <p className="text-muted-foreground">
+                        {service.description}
+                      </p>
+                      <Link href={`/privacy-policy`}>
+                        <Button
+                          variant="link"
+                          className="mt-4 gap-1 group-hover:text-primary transition-colors">
+                          Learn more <ArrowRight className="h-4 w-4 ml-1" />
+                        </Button>
+                      </Link>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </Container>
+          </AnimationComponent>
         </section>
 
         {/* Stats Section */}
@@ -274,69 +279,75 @@ export default function Home() {
 
         {/* Neighborhoods Section */}
         <section className="py-16 bg-white">
-          <Container>
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Explore Neighborhoods</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto">
-                Discover the unique character and charm of our city&apos;s most
-                desirable neighborhoods.
-              </p>
-            </div>
+          <AnimationComponent delay={0.5}>
+            <Container>
+              <div className="text-center mb-12">
+                <h2 className="text-3xl font-bold mb-4">
+                  Explore Neighborhoods
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Discover the unique character and charm of our city&apos;s
+                  most desirable neighborhoods.
+                </p>
+              </div>
 
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {[
-                {
-                  name: "Downtown",
-                  properties: 156,
-                  image: "/assets/demo/p1.jpg",
-                },
-                {
-                  name: "Westside",
-                  properties: 89,
-                  image: "/assets/demo/p2.jpg",
-                },
-                {
-                  name: "Riverside",
-                  properties: 112,
-                  image: "/assets/demo/p3.jpg",
-                },
-              ].map((neighborhood, index) => (
-                <div
-                  key={index}
-                  className="group relative overflow-hidden rounded-xl">
-                  <Image
-                    src={neighborhood.image || "/placeholder.svg"}
-                    alt={neighborhood.name}
-                    width={500}
-                    height={300}
-                    className="aspect-[3/2] w-full object-cover transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                  <div className="absolute bottom-0 left-0 p-6">
-                    <h3 className="text-2xl font-bold text-white mb-1">
-                      {neighborhood.name}
-                    </h3>
-                    <p className="text-white/80">
-                      {neighborhood.properties} Properties
-                    </p>
+              <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+                {[
+                  {
+                    name: "Downtown",
+                    properties: 156,
+                    image: "/assets/demo/p1.jpg",
+                  },
+                  {
+                    name: "Westside",
+                    properties: 89,
+                    image: "/assets/demo/p2.jpg",
+                  },
+                  {
+                    name: "Riverside",
+                    properties: 112,
+                    image: "/assets/demo/p3.jpg",
+                  },
+                ].map((neighborhood, index) => (
+                  <div
+                    key={index}
+                    className="group relative overflow-hidden rounded-xl">
+                    <Image
+                      src={neighborhood.image || "/placeholder.svg"}
+                      alt={neighborhood.name}
+                      width={500}
+                      height={300}
+                      className="aspect-[3/2] w-full object-cover transition-transform duration-300 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    <div className="absolute bottom-0 left-0 p-6">
+                      <h3 className="text-2xl font-bold text-white mb-1">
+                        {neighborhood.name}
+                      </h3>
+                      <p className="text-white/80">
+                        {neighborhood.properties} Properties
+                      </p>
+                    </div>
+                    <Link href="/properties" className="absolute inset-0">
+                      <span className="sr-only">View {neighborhood.name}</span>
+                    </Link>
                   </div>
-                  <Link href="/properties" className="absolute inset-0">
-                    <span className="sr-only">View {neighborhood.name}</span>
-                  </Link>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
 
-            <div className="text-center mt-10">
-              <Link href="/properties">
-                <Button size="lg">View All Neighborhoods</Button>
-              </Link>
-            </div>
-          </Container>
+              <div className="text-center mt-10">
+                <Link href="/properties">
+                  <Button size="lg">View All Neighborhoods</Button>
+                </Link>
+              </div>
+            </Container>
+          </AnimationComponent>
         </section>
         <div>
           {/* Testimonials Section */}
-          <CustomerReviews />
+          <AnimationComponent delay={0.5}>
+            <CustomerReviews />
+          </AnimationComponent>
           {/* <section className="py-16 bg-gray-50">
             <Container>
               <div className="text-center mb-12">
@@ -465,7 +476,9 @@ export default function Home() {
           </section>
         </div>
         {/* Brands */}
-        <Brands />
+        <AnimationComponent delay={0.5}>
+          <Brands />
+        </AnimationComponent>
       </Stack>
     </MainLayout>
   );
