@@ -51,8 +51,6 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   size,
   variant,
-  color,
-  fullWidth,
   disabled,
   isLoading,
   children,
@@ -61,7 +59,7 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       className={cn(
-        buttonVariants({ size, variant, color, fullWidth, disabled }),
+        buttonVariants({ size, variant }),
         className
       )}
       disabled={disabled || isLoading}

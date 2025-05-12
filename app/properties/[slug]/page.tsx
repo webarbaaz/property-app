@@ -64,10 +64,9 @@ export default function PropertyPage() {
     <MainLayout>
       <Stack className="pb-10">
         <Button
-          variant={"solid"}
+          variant={"primary"}
           className="flex hover:bg-green-600 bg-green-500 items-center gap-2 text-white rounded-full fixed bottom-8 right-8"
-          onClick={() => setLeadDialog(true)}
-        >
+          onClick={() => setLeadDialog(true)}>
           <Text color="white">Enquiry</Text>
           <PhoneCall />
         </Button>
@@ -194,7 +193,7 @@ export default function PropertyPage() {
               </div>
               <PropertyList
                 filters={{
-                  category: property.category
+                  category: property.category,
                 }}
               />
             </Stack>

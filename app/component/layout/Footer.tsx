@@ -16,7 +16,7 @@ export default function Footer() {
             <div>
               <div className="flex items-center gap-2">
                 <Image
-                  src="/logo.png"
+                  src="/assets/logo.png"
                   alt="True Value Homes"
                   width={40}
                   height={40}

@@ -94,11 +94,11 @@ export default function ContactPage() {
                           </div>
                           <div>
                             <h3 className="font-semibold mb-2">Phone</h3>
-                            <p className="text-muted-foreground">
+                            {/* <p className="text-muted-foreground">
                               Main: (416) 555-1234
-                            </p>
+                            </p> */}
                             <p className="text-muted-foreground">
-                              Support: (416) 555-5678
+                              Support: +917030187000
                             </p>
                           </div>
                         </div>
@@ -148,7 +148,7 @@ export default function ContactPage() {
 
                   <div className="relative h-[300px] rounded-xl overflow-hidden">
                     <Image
-                      src=""
+                      src="/assets/demo/map.avif"
                       alt="Office location map"
                       fill
                       className="object-cover"
@@ -221,7 +221,7 @@ export default function ContactPage() {
                               <RadioGroupItem value="buying" id="buying" />
                               <Label htmlFor="buying">Buying a property</Label>
                             </div>
-                            <div className="flex items-center space-x-2">
+                            {/* <div className="flex items-center space-x-2">
                               <RadioGroupItem value="selling" id="selling" />
                               <Label htmlFor="selling">
                                 Selling a property
@@ -230,7 +230,7 @@ export default function ContactPage() {
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="renting" id="renting" />
                               <Label htmlFor="renting">Renting</Label>
-                            </div>
+                            </div> */}
                             <div className="flex items-center space-x-2">
                               <RadioGroupItem value="other" id="other" />
                               <Label htmlFor="other">Other</Label>

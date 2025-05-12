@@ -1,17 +1,13 @@
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
-import { Grid } from "./ui/Grid";
-import Stack from "./ui/Stack";
 // import Text from "./ui/Text";
 import Button from "./ui/Button";
 import { useRouter } from "next/navigation";
 import { useSite } from "../hooks/useSite";
 // import HStack from "./ui/HStack";
-import { Search } from "lucide-react";
-import {
-  getLocations,
-  getProjectTypes,
-} from "@/lib/sanity/controller/controller.property";
+import { Filter, Search } from "lucide-react";
+import { getLocations } from "@/lib/sanity/controller/controller.property";
+import HStack from "./ui/HStack";
 
 const configuration = [
   { title: "1 RK", value: "1-rk" },
@@ -35,12 +31,6 @@ export default function SearchBar() {
   const router = useRouter();
   const { searchTerms, setSearchTerms } = useSite();
 
-  type ProjectType = {
-    title: string;
-    value: string;
-  };
-
-  const [projectTypes, setProjectTypes] = useState<ProjectType[]>([]);
   const [localites, setLocalities] = useState<Locality[]>([]);
 
   // Function for executing the search
@@ -53,12 +43,7 @@ export default function SearchBar() {
 
     router.push(`/search?${params.toString()}`);
   }, [searchTerms, router]);
-  const fetchPT = useCallback(async () => {
-    const pt = await getProjectTypes();
-    if (pt) {
-      setProjectTypes(pt);
-    }
-  }, []);
+
   const fetchlocalities = useCallback(async () => {
     const l = await getLocations();
     if (l) {
@@ -70,81 +55,64 @@ export default function SearchBar() {
     fetchlocalities();
   }, [fetchlocalities]);
 
-  useEffect(() => {
-    fetchPT();
-  }, [fetchPT]);
-
   // Disable button if no search terms
   return (
-    <Grid
-      cols={"max5"}
-      className="w-full max-w-4xl lg:bg-white lg:py-6 lg:px-8"
-    >
-      <Stack>
-        {/* <Text weight={"semibold"}>Type</Text> */}
-        <select
-          name="type"
-          value={searchTerms.propertyType || ""}
-          onChange={(e) => setSearchTerms({ propertyType: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
-          <option value="">All</option>
-          {projectTypes?.map((item, idx) => (
-            <option key={idx} value={item.title}>
-              {item.title}
-            </option>
-          ))}
-        </select>
-      </Stack>
-      <Stack>
-        {/* <Text weight={"semibold"}>Status</Text> */}
-        <select
-          name="status"
-          value={searchTerms.propertyStatus || ""}
-          onChange={(e) => setSearchTerms({ propertyStatus: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
-          <option value="">All</option>
-          <option value="ready-to-move">Ready To Move</option>
-          <option value="under-construction">Under Construction</option>
-        </select>
-      </Stack>
-      <Stack>
-        {/* <Text weight={"semibold"}>Location</Text> */}
-        <select
-          name="configuration"
-          value={searchTerms.configuration || ""}
-          onChange={(e) => setSearchTerms({ configuration: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
-          <option value="">All</option>
-          {configuration?.map((item, idx) => (
-            <option key={idx} value={item.value}>
-              {item.title}
-            </option>
-          ))}
-        </select>
-      </Stack>
-      <Stack>
-        {/* <Text weight={"semibold"}>Location</Text> */}
-        <select
-          name="location"
-          value={searchTerms.locality || ""}
-          onChange={(e) => setSearchTerms({ locality: e.target.value })}
-          className="border p-2 rounded-lg"
-        >
-          <option value="">All</option>
-          {localites.map((item: Locality, idx: number) => (
-            <option key={idx} value={item?.name?.current}>
-              {item?.name?.current}
-            </option>
-          ))}
-        </select>
-      </Stack>
-      <Button onClick={onSearch} className="h-10 mt-auto rounded-full">
-        <Search className="w-6 h-6" />
-        Search Now
-      </Button>
-    </Grid>
+    <div className="mt-10 max-w-4xl rounded-xl bg-white/95 backdrop-blur-sm p-4 shadow-lg">
+            <div className="grid gap-4 md:grid-cols-4">
+              <div className="space-y-2">
+                <label className="text-sm font-medium block">
+                  Configuration
+                </label>
+                <select
+                  name="configuration"
+                  value={searchTerms.configuration || ""}
+                  onChange={(e) =>
+                    setSearchTerms({ configuration: e.target.value })
+                  }
+                  className="border p-2 rounded-lg w-full">
+                  <option value="">All</option>
+                  {configuration?.map((item, idx) => (
+                    <option key={idx} value={item.value}>
+                      {item.title}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium">Location</label>
+                <select
+                  name="location"
+                  value={searchTerms.locality || ""}
+                  onChange={(e) => setSearchTerms({ locality: e.target.value })}
+                  className="border p-2 rounded-lg w-full">
+                  <option value="">All</option>
+                  {localites.map((item: Locality, idx: number) => (
+                    <option key={idx} value={item?.name?.current}>
+                      {item?.name?.current}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              {/* <div className="space-y-2">
+                <label className="text-sm font-medium">Price Range</label>
+              </div> */}
+              <div></div>
+              <div className="flex items-end ms-auto">
+                <Button className="w-full gap-2" onClick={onSearch}>
+                  <Search className="h-4 w-4" />
+                  Search Properties
+                </Button>
+              </div>
+            </div>
+            <HStack className="mt-4 gap-4" justify={"between"}>
+              <Button variant="link" size="sm" className="gap-1">
+                <Filter className="h-3 w-3" />
+                Advanced Filters
+              </Button>
+              <span className="text-sm text-gray-500">
+                2,345 properties available
+              </span>
+            </HStack>
+          </div>
   );
 }

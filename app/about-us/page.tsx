@@ -2,13 +2,7 @@
 import { ReactNode, useEffect, useRef } from "react";
 import Image from "next/image";
 import { motion, useInView, useAnimation } from "framer-motion";
-import {
-  Users,
-  Award,
-  TrendingUp,
-  Clock,
-  CheckCircle2,
-} from "lucide-react";
+import { Users, Award, TrendingUp, Clock, CheckCircle2 } from "lucide-react";
 
 import { Card, CardContent } from "@/components/ui/card";
 import Button from "../component/ui/Button";
@@ -77,11 +71,11 @@ export default function AboutPage() {
                     transition={{ duration: 0.8 }}
                     className="rounded-2xl overflow-hidden shadow-2xl">
                     <Image
-                      src="/placeholder.svg?height=600&width=800"
+                      src="/assets/demo/a2.jpg"
                       alt="Our office"
                       width={800}
                       height={600}
-                      className="w-full h-auto object-cover"
+                      className="w-full h-96 object-cover"
                     />
                   </motion.div>
                   <motion.div
@@ -114,7 +108,7 @@ export default function AboutPage() {
               <FadeIn className="order-2 lg:order-1">
                 <div className="relative">
                   <Image
-                    src="/placeholder.svg?height=600&width=800"
+                    src="/assets/demo/a1.jpg"
                     alt="Company history"
                     width={800}
                     height={600}
@@ -152,7 +146,7 @@ export default function AboutPage() {
                     />
                   </div>
                   <div>
-                    <div className="font-semibold">Robert Johnson</div>
+                    <div className="font-semibold">Raziq Khan</div>
                     <div className="text-sm text-muted-foreground">
                       Founder & CEO
                     </div>
@@ -237,22 +231,22 @@ export default function AboutPage() {
                 {
                   name: "Sarah Johnson",
                   role: "Senior Real Estate Agent",
-                  image: "/placeholder.svg?height=400&width=400",
+                  image: "/assets/demo/sarah.jpg",
                 },
                 {
                   name: "Michael Chen",
                   role: "Commercial Property Specialist",
-                  image: "/placeholder.svg?height=400&width=400",
+                  image: "/assets/demo/micheal.jpg",
                 },
                 {
                   name: "Emily Rodriguez",
                   role: "Residential Sales Manager",
-                  image: "/placeholder.svg?height=400&width=400",
+                  image: "/assets/demo/emily.jpg",
                 },
                 {
                   name: "David Kim",
                   role: "Investment Advisor",
-                  image: "/placeholder.svg?height=400&width=400",
+                  image: "/assets/demo/david.jpg",
                 },
               ].map((member, index) => (
                 <FadeIn key={index} delay={0.1 * index}>
@@ -340,7 +334,7 @@ export default function AboutPage() {
                   animate={{ rotate: 0, scale: 1 }}
                   transition={{ duration: 0.6 }}>
                   <Image
-                    src="/placeholder.svg?height=300&width=400"
+                    src="/assets/demo/work-us.jpg"
                     alt="Contact us"
                     width={400}
                     height={300}

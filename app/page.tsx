@@ -239,11 +239,13 @@ export default function Home() {
                     <p className="text-muted-foreground">
                       {service.description}
                     </p>
-                    <Button
-                      variant="link"
-                      className="mt-4 gap-1 group-hover:text-primary transition-colors">
-                      Learn more <ArrowRight className="h-4 w-4 ml-1" />
-                    </Button>
+                    <Link href={`/privacy-policy`}>
+                      <Button
+                        variant="link"
+                        className="mt-4 gap-1 group-hover:text-primary transition-colors">
+                        Learn more <ArrowRight className="h-4 w-4 ml-1" />
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               ))}
@@ -286,17 +288,17 @@ export default function Home() {
                 {
                   name: "Downtown",
                   properties: 156,
-                  image: "/placeholder.svg?height=300&width=500",
+                  image: "/assets/demo/p1.jpg",
                 },
                 {
                   name: "Westside",
                   properties: 89,
-                  image: "/placeholder.svg?height=300&width=500",
+                  image: "/assets/demo/p2.jpg",
                 },
                 {
                   name: "Riverside",
                   properties: 112,
-                  image: "/placeholder.svg?height=300&width=500",
+                  image: "/assets/demo/p3.jpg",
                 },
               ].map((neighborhood, index) => (
                 <div
@@ -318,7 +320,7 @@ export default function Home() {
                       {neighborhood.properties} Properties
                     </p>
                   </div>
-                  <Link href="#" className="absolute inset-0">
+                  <Link href="/properties" className="absolute inset-0">
                     <span className="sr-only">View {neighborhood.name}</span>
                   </Link>
                 </div>
@@ -326,7 +328,9 @@ export default function Home() {
             </div>
 
             <div className="text-center mt-10">
-              <Button size="lg">View All Neighborhoods</Button>
+              <Link href="/properties">
+                <Button size="lg">View All Neighborhoods</Button>
+              </Link>
             </div>
           </Container>
         </section>
@@ -418,8 +422,8 @@ export default function Home() {
                   </h2>
                   <p className="text-gray-300 mb-6">
                     Let our experts guide you through the process. Whether
-                    you&apos;re buying, selling, or investing, we&apos;re here to help
-                    every step of the way.
+                    you&apos;re buying, selling, or investing, we&apos;re here
+                    to help every step of the way.
                   </p>
                   <div className="flex flex-wrap gap-4">
                     <Button

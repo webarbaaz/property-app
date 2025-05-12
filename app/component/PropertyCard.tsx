@@ -1,10 +1,7 @@
 import React from "react";
-import Stack from "./ui/Stack";
 import Image from "next/image";
-import Text from "./ui/Text";
 import { Property } from "@/types";
 import generateImageUrl from "@/lib/sanity/utils/imageBuilder";
-import { Grid } from "./ui/Grid";
 import Button from "./ui/Button";
 import { useSite } from "../hooks/useSite";
 import { MapPin } from "lucide-react";
@@ -49,19 +46,36 @@ export default function PropertyCard({ property }: Props) {
           <div className="mt-4 flex items-center justify-between border-t pt-4">
             <div className="flex items-center gap-4">
               <div className="flex flex-col">
-                <span className="text-xs text-muted-foreground">Bedrooms</span>
-                <span className="font-medium">3</span>
+                <span className="text-xs text-muted-foreground">
+                  Configuration
+                </span>
+                <span className="font-medium">
+                  {property.size
+                    .map((s) => s.split("-")[0]) // Extract "2" from "2-bhk"
+                    .join(", ")}{" "}
+                  BHK
+                </span>
               </div>
-              <div className="flex flex-col">
+              {/* <div className="flex flex-col">
                 <span className="text-xs text-muted-foreground">Bathrooms</span>
                 <span className="font-medium">2</span>
-              </div>
+              </div> */}
               <div className="flex flex-col">
-                <span className="text-xs text-muted-foreground">Area</span>
-                <span className="font-medium">1,200 sq ft</span>
+                <span className="text-xs text-muted-foreground">
+                  Carpet Area (Sq Ft)
+                </span>
+                <span className="font-medium">{property.carpetArea}</span>
               </div>
             </div>
-            <Button variant="ghost" size="sm">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                setProperty(property);
+                setLeadDialog(true);
+              }}>
               Details
             </Button>
           </div>

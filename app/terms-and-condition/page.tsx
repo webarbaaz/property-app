@@ -9,10 +9,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import MainLayout from "../component/layout/MainLayout";
 import Container from "../component/ui/Container";
 
-const FadeIn = ({ children, delay = 0, className = "" }) => {
+type FadeInProps = {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+};
+
+const FadeIn = ({ children, delay = 0, className = "" }: FadeInProps) => {
   const controls = useAnimation();
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, threshold: 0.1 });
+  const isInView = useInView(ref, { once: true, amount: 0.1 });
 
   useEffect(() => {
     if (isInView) {
