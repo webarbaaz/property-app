@@ -19,7 +19,7 @@ export default function MainLayout({ children }: Props) {
       <LeadDialog />
       <Header />
       <BreadCrumb />
-      {children}
+      <main className="min-h-screen">{children}</main>
       <Footer />
     </QueryClientProvider>
   );

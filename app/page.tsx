@@ -11,7 +11,6 @@ import PropertyList from "./component/PropertyList";
 import { getCategories } from "@/lib/sanity/controller/controller.property";
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-// import { useSite } from "./hooks/useSite";
 import {
   ArrowRight,
   Building,
@@ -24,6 +23,39 @@ import {
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import AnimationComponent from "./component/AnimationComponent";
+
+export const metadata = {
+  title: "True Value Home",
+  description:
+    "True Value Home is a real estate company that provides a wide range of services to meet your property needs.",
+  keywords: ["true value home", "real estate", "property"],
+  robots: "index, follow",
+  alternates: {
+    canonical: "https://www.truevaluehome.in/",
+  },
+  openGraph: {
+    title: "True Value Home",
+    description:
+      "True Value Home is a real estate company that provides a wide range of services to meet your property needs.",
+    url: "https://www.truevaluehome.in/",
+    type: "website",
+    images: [
+      {
+        url: "https://www.truevaluehome.in/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "True Value Home",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "True Value Home",
+    description:
+      "True Value Home is a real estate company that provides a wide range of services to meet your property needs.",
+    images: ["https://www.truevaluehome.in/twitter-image.jpg"],
+  },
+};
 
 type Category = {
   _id: string;
