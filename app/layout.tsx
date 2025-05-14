@@ -27,6 +27,7 @@ export default function RootLayout({
         {/* Favicon */}
         <link rel="icon" href="/favicon-32x32.png" sizes="32x32" />
         <link rel="icon" href="/favicon-16x16.png" sizes="16x16" />
+        <link rel="icon" href="/favicon.ico" />
         <script
           type="text/javascript"
           dangerouslySetInnerHTML={{
